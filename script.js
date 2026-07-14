@@ -103,10 +103,13 @@
       'Contractor Management': 'contractor-management', 'Standard Operating Procedures': 'standard-operating-procedures',
       'Incident Investigations': 'incident-investigations', 'Safety Audits': 'safety-audits'
     };
+    var dedicated = { 'Safety Training': 'safety-training.html' };
     document.querySelectorAll('.svc').forEach(function (card) {
       var h = card.querySelector('h3'), link = card.querySelector('.svc__link');
       if (!h || !link) return;
-      var id = map[h.textContent.trim()];
+      var name = h.textContent.trim();
+      if (dedicated[name]) { link.setAttribute('href', dedicated[name]); return; }
+      var id = map[name];
       if (id) link.setAttribute('href', 'services.html#' + id);
     });
   })();
