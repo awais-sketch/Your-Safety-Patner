@@ -304,7 +304,7 @@ h1,h2,h3,h4{ font-family:var(--font-display); color:var(--ink); margin:0; line-h
    ABOUT + TEAM
    ============================================================ */
 .about{ background:var(--paper-2); }
-.about__row{ display:grid; grid-template-columns:1.15fr 1fr; gap:60px; align-items:center; margin-bottom:64px; }
+.about__row{ display:grid; grid-template-columns:1.15fr 1fr; gap:60px; align-items:center; margin-bottom:64px; scroll-margin-top:96px; }
 .about__row--reverse .about__media{ order:2; }
 .about__media{ border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow-md); }
 .about__media img{ display:block; width:100%; aspect-ratio:3/2; object-fit:cover; transition:transform .6s var(--ease-out); }

@@ -93,6 +93,24 @@
     reveals.forEach(function (el) { el.classList.add('in'); });
   }
 
+  /* ---- Link service cards to their detail sections on services.html ---- */
+  (function () {
+    var map = {
+      'Traffic Management': 'traffic-management', 'Safety Training': 'safety-training',
+      'Machine Safety': 'machine-safety', 'Plant & Equipment': 'plant-equipment',
+      'Job Safety Analysis': 'job-safety-analysis', 'Psychosocial Health': 'psychosocial-health',
+      'Confined Spaces': 'confined-spaces', 'Working at Heights': 'working-at-heights',
+      'Contractor Management': 'contractor-management', 'Standard Operating Procedures': 'standard-operating-procedures',
+      'Incident Investigations': 'incident-investigations', 'Safety Audits': 'safety-audits'
+    };
+    document.querySelectorAll('.svc').forEach(function (card) {
+      var h = card.querySelector('h3'), link = card.querySelector('.svc__link');
+      if (!h || !link) return;
+      var id = map[h.textContent.trim()];
+      if (id) link.setAttribute('href', 'services.html#' + id);
+    });
+  })();
+
   /* ---- Mobile nav ---- */
   var burger = document.querySelector('.burger');
   var mnav = document.querySelector('.mobile-nav');
