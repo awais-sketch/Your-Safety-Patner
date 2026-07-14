@@ -357,15 +357,13 @@ h1,h2,h3,h4{ font-family:var(--font-display); color:var(--ink); margin:0; line-h
    ============================================================ */
 .services{ background:var(--paper); }
 .svc-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
-.svc{ background:var(--paper-2); border:1px solid var(--line); border-radius:16px; overflow:hidden; padding:32px 28px 28px; position:relative; transition:box-shadow .35s var(--ease-out), border-color .3s; }
-.svc::after{ content:''; position:absolute; left:0; right:0; bottom:0; height:3px; background:var(--hi-vis); transform:scaleX(0); transform-origin:left; transition:transform .35s var(--ease); pointer-events:none; z-index:5; }
+.svc{ background:var(--paper-2); border:1px solid var(--line); border-radius:16px; overflow:hidden; padding:24px 24px 24px; position:relative; transition:box-shadow .35s var(--ease-out), border-color .3s; }
+.svc__img{ margin:-24px -24px 18px; aspect-ratio:16/10; overflow:hidden; background:var(--ink); }
+.svc__img img{ width:100%; height:100%; object-fit:cover; display:block; transition:transform .6s var(--ease-out); }
+.svc:hover .svc__img img{ transform:scale(1.06); }
 .svc:hover{ box-shadow:var(--shadow-md); border-color:transparent; }
-.svc:hover::after{ transform:scaleX(1); }
-.svc__ico{ width:46px; height:46px; border-radius:11px; background:var(--ink); color:var(--hi-vis); display:grid; place-items:center; margin-bottom:20px; transition:.35s var(--ease); }
-.svc__ico svg{ width:23px; height:23px; }
-.svc:hover .svc__ico{ background:var(--hi-vis); color:var(--ink); transform:rotate(-6deg); }
-.svc h3{ font-size:18px; font-weight:600; margin-bottom:10px; }
-.svc p{ font-size:14px; margin:0 0 18px; }
+.svc h3{ font-size:17.5px; font-weight:600; margin-bottom:9px; }
+.svc p{ font-size:14px; margin:0 0 16px; }
 .svc__link{ font-family:var(--font-display); font-weight:600; font-size:13.5px; color:var(--ink-30); transition:color .3s; }
 .svc:hover .svc__link{ color:var(--hi-vis-deep); }
 @media(max-width:900px){ .svc-grid{ grid-template-columns:1fr 1fr; } }
