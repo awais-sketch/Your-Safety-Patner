@@ -513,7 +513,7 @@ h1,h2,h3,h4{ font-family:var(--font-display); color:var(--ink); margin:0; line-h
 .cd__label{ font-family:var(--font-mono); font-size:11.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--hi-vis); }
 .cd__val{ font-size:14.5px; color:rgba(255,255,255,.82); }
 .cd__val--link:hover{ color:var(--hi-vis); }
-.contact__map{ margin-top:26px; border-radius:var(--radius); overflow:hidden; border:1px solid var(--line-dark); box-shadow:var(--shadow-md); line-height:0; position:relative; }
+.contact__map{ margin-top:52px; border-radius:var(--radius); overflow:hidden; border:1px solid var(--line-dark); box-shadow:var(--shadow-md); line-height:0; position:relative; }
 .contact__map::after{ content:''; position:absolute; inset:0; box-shadow:inset 0 0 0 1px rgba(255,255,255,.06); border-radius:inherit; pointer-events:none; }
 .contact__map iframe{ display:block; width:100%; filter:grayscale(.2) contrast(1.02); transition:filter .4s var(--ease-out); }
 .contact__map:hover iframe{ filter:grayscale(0) contrast(1); }
