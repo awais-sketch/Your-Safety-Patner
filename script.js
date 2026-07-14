@@ -46,15 +46,49 @@
     });
   });
 
-  /* ---- Scroll reveal ---- */
+  /* ---- Professional scroll reveal (Web Animations API) ----
+     Driven in JS so it plays even when the OS "reduce motion" setting would
+     otherwise gate CSS animations. Fade + rise, cubic ease-out, staggered. */
   var reveals = document.querySelectorAll('.reveal');
-  if ('IntersectionObserver' in window) {
+  var canAnimate = 'IntersectionObserver' in window && typeof document.body.animate === 'function';
+  // Only hide reveals now that JS is confirmed running (no-JS keeps content visible).
+  document.documentElement.classList.add('reveal-ready');
+
+  function showReveal(el, animate) {
+    if (el.classList.contains('in')) return;
+    el.classList.add('in');
+    if (animate) {
+      el.animate(
+        [{ opacity: 0, transform: 'translateY(34px)' }, { opacity: 1, transform: 'translateY(0)' }],
+        { duration: 760, delay: (parseInt(el.getAttribute('data-delay') || '0', 10)) * 95, easing: 'cubic-bezier(.16,1,.3,1)', fill: 'backwards' }
+      );
+    }
+  }
+
+  if (canAnimate) {
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
-        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+        if (!e.isIntersecting) return;
+        var el = e.target; io.unobserve(el);
+        showReveal(el, true);
       });
-    }, { threshold: 0.14, rootMargin: '0px 0px -8% 0px' });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
     reveals.forEach(function (el) { io.observe(el); });
+
+    /* Safety net: if nothing revealed within 3s (observer never fired, e.g. the
+       tab loaded in the background), just show everything so content is never lost. */
+    setTimeout(function () {
+      var any = Array.prototype.some.call(reveals, function (el) { return el.classList.contains('in'); });
+      if (!any) reveals.forEach(function (el) { showReveal(el, false); });
+    }, 3000);
+    document.addEventListener('visibilitychange', function () {
+      if (document.visibilityState === 'visible') {
+        reveals.forEach(function (el) {
+          var r = el.getBoundingClientRect();
+          if (r.top < window.innerHeight && r.bottom > 0) showReveal(el, true);
+        });
+      }
+    });
   } else {
     reveals.forEach(function (el) { el.classList.add('in'); });
   }
