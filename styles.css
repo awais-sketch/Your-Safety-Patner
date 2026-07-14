@@ -638,7 +638,7 @@ h1,h2,h3,h4{ font-family:var(--font-display); color:var(--ink); margin:0; line-h
 .band__photo{ position:absolute; inset:0; background-image:url('https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&w=1920&q=80'); background-size:cover; background-position:center 30%; transform:scale(1.05); }
 .band__overlay{ position:absolute; inset:0; background:linear-gradient(90deg, rgba(19,20,22,.94) 0%, rgba(19,20,22,.8) 45%, rgba(19,20,22,.55) 100%); }
 .band__inner{ position:relative; padding:96px 24px; }
-.band__quote{ font-family:var(--font-display); font-weight:600; font-size:clamp(1.45rem,2.8vw,2.3rem); line-height:1.32; color:var(--white); max-width:22ch; margin:14px 0 40px; letter-spacing:-.015em; }
+.band__quote{ font-family:var(--font-display); font-weight:600; font-size:clamp(1.25rem,2.1vw,1.75rem); line-height:1.36; color:var(--white); max-width:26ch; margin:14px 0 38px; letter-spacing:-.015em; }
 .band__stats{ display:flex; gap:48px; flex-wrap:wrap; border-top:1px solid var(--line-dark); padding-top:28px; }
 .band__stats strong{ display:block; font-family:var(--font-display); font-weight:700; font-size:20px; color:var(--hi-vis); }
 .band__stats span{ font-size:13.5px; color:rgba(255,255,255,.65); }
