@@ -113,9 +113,9 @@ h1,h2,h3,h4{ font-family:var(--font-display); color:var(--ink); margin:0; line-h
 
 /* ---------- header ---------- */
 .header{ position:sticky; top:0; z-index:60; background:rgba(20,21,23,.78); backdrop-filter:blur(18px) saturate(1.3); -webkit-backdrop-filter:blur(18px) saturate(1.3); border-bottom:1px solid rgba(255,255,255,.09); }
-.header__inner{ display:flex; align-items:center; justify-content:space-between; height:86px; gap:32px; }
+.header__inner{ display:flex; align-items:center; justify-content:space-between; height:66px; gap:32px; }
 .brand{ display:inline-flex; align-items:center; }
-.brand__logo{ height:46px; width:auto; }
+.brand__logo{ height:36px; width:auto; }
 .nav{ display:flex; gap:36px; margin-left:auto; }
 .nav a{ font-family:var(--font-display); font-weight:500; font-size:15px; color:rgba(255,255,255,.82); position:relative; padding:6px 0; }
 .nav a::after{ content:''; position:absolute; left:0; bottom:0; width:0; height:2px; background:var(--hi-vis); transition:width .28s var(--ease); }
@@ -511,7 +511,7 @@ h1,h2,h3,h4{ font-family:var(--font-display); color:var(--ink); margin:0; line-h
 .cd__label{ font-family:var(--font-mono); font-size:11.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--hi-vis); }
 .cd__val{ font-size:14.5px; color:rgba(255,255,255,.82); }
 .cd__val--link:hover{ color:var(--hi-vis); }
-.contact__map{ margin-top:52px; border-radius:var(--radius); overflow:hidden; border:1px solid var(--line-dark); box-shadow:var(--shadow-md); line-height:0; position:relative; }
+.contact__map{ max-width:840px; margin:48px auto 0; border-radius:var(--radius); overflow:hidden; border:1px solid var(--line-dark); box-shadow:var(--shadow-md); line-height:0; position:relative; }
 .contact__map::after{ content:''; position:absolute; inset:0; box-shadow:inset 0 0 0 1px rgba(255,255,255,.06); border-radius:inherit; pointer-events:none; }
 .contact__map iframe{ display:block; width:100%; filter:grayscale(.2) contrast(1.02); transition:filter .4s var(--ease-out); }
 .contact__map:hover iframe{ filter:grayscale(0) contrast(1); }
