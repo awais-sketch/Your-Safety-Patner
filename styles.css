@@ -465,6 +465,8 @@ h1,h2,h3,h4{ font-family:var(--font-display); color:var(--ink); margin:0; line-h
    ============================================================ */
 .reviews{ background:var(--paper); }
 .review-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+.review-grid--2{ grid-template-columns:repeat(2,1fr); max-width:920px; margin-inline:auto; }
+@media(max-width:900px){ .review-grid--2{ grid-template-columns:1fr; } }
 .review{ background:var(--paper-2); border:1px solid var(--line); border-radius:var(--radius); padding:32px 30px; margin:0; transition:transform .35s var(--ease), box-shadow .35s; }
 .review:hover{ transform:translateY(-5px); box-shadow:var(--shadow-md); }
 .review .stars{ font-size:16px; margin-bottom:16px; }
