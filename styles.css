@@ -374,6 +374,15 @@ h1,h2,h3,h4{ font-family:var(--font-display); color:var(--ink); margin:0; line-h
 .svcstats__label{ font-size:14px; color:rgba(255,255,255,.6); margin-top:12px; line-height:1.5; }
 @media(max-width:700px){ .svcstats__grid{ grid-template-columns:1fr; gap:24px; } }
 
+/* Get in touch (light) */
+.getintouch{ background:var(--paper-2); }
+.getintouch .contact__inner{ align-items:center; }
+.git__copy{ font-size:16px; color:var(--ink-70); line-height:1.65; margin:16px 0 24px; max-width:46ch; }
+.getintouch .contact__details{ border-top:1px solid var(--line); padding-top:22px; }
+.getintouch .cd__label{ color:var(--hi-vis-deep); }
+.getintouch .cform textarea{ min-height:96px; }
+@media(max-width:860px){ .getintouch .contact__inner{ grid-template-columns:1fr; } }
+
 .link-more{ display:inline-flex; align-items:center; gap:6px; font-family:var(--font-display); font-weight:600; font-size:14.5px; color:var(--ink); }
 .link-more svg{ transition:transform .3s var(--ease-out); }
 .link-more:hover{ color:var(--hi-vis-deep); }
