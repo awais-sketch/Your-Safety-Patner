@@ -9,6 +9,29 @@
     var originals = Array.prototype.slice.call(track.children);
     originals.forEach(function (node) { track.appendChild(node.cloneNode(true)); });
     track.classList.add('is-ready');
+
+    /* JS-driven continuous scroll — NOT affected by reduced-motion engine gating,
+       so the strip moves on every browser/OS setting. */
+    var dir = track.classList.contains('marquee__track--reverse') ? 1 : -1;
+    var speed = 45; // px per second
+    var half = track.scrollWidth / 2;
+    var measure = function () { var h = track.scrollWidth / 2; if (h) half = h; };
+    window.addEventListener('load', measure);
+    window.addEventListener('resize', measure);
+    var x = dir === 1 ? -half : 0;
+    var last = null;
+    function step(ts) {
+      if (last === null) last = ts;
+      var dt = (ts - last) / 1000; last = ts;
+      if (dt > 0.12) dt = 0.016; // clamp big jumps after the tab was backgrounded
+      if (!half) measure();
+      x += dir * speed * dt;
+      if (x <= -half) x += half;
+      if (x >= 0) x -= half;
+      track.style.transform = 'translate3d(' + x.toFixed(2) + 'px,0,0)';
+      requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
   });
 
   /* ---- Extend scroll-reveal to section headers & key blocks ----

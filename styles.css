@@ -248,8 +248,7 @@ h1,h2,h3,h4{ font-family:var(--font-display); color:var(--ink); margin:0; line-h
 /* Seamless infinite conveyor: track = 2 identical copies, translate exactly -50%.
    margin-right (not flex gap) on every logo keeps both copies perfectly tiled,
    so -50% lands copy #2 exactly where copy #1 began — no jump, no reset, ever. */
-.marquee__track{ display:flex; align-items:center; width:max-content; animation:scroll 80s linear infinite; }
-.marquee__track--reverse{ animation:scrollRev 90s linear infinite; }
+.marquee__track{ display:flex; align-items:center; width:max-content; will-change:transform; }
 .marquee__track img{ height:46px; width:auto; object-fit:contain; margin-right:82px; opacity:.96; mix-blend-mode:multiply; transition:transform .3s var(--ease-out), opacity .3s var(--ease-out); }
 .marquee__track img:hover{ opacity:1; transform:scale(1.1); }
 @keyframes scroll{ from{transform:translateX(0)} to{transform:translateX(-50%)} }
@@ -667,8 +666,6 @@ h1,h2,h3,h4{ font-family:var(--font-display); color:var(--ink); margin:0; line-h
 @media(prefers-reduced-motion:reduce){
   *{ animation:none !important; transition:none !important; scroll-behavior:auto !important; }
   .reveal{ opacity:1; transform:none; }
-  /* Keep the client-logo strip auto-scrolling even under reduced-motion
-     (explicitly requested) — it's a slow, linear, decorative marquee. */
-  .marquee__track{ animation:scroll 80s linear infinite !important; }
-  .marquee__track--reverse{ animation:scrollRev 90s linear infinite !important; }
+  /* The client-logo strip is animated via JS (requestAnimationFrame),
+     which is not affected by reduced-motion engine gating. */
 }
