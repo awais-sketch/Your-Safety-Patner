@@ -118,6 +118,23 @@ h1,h2,h3,h4{ font-family:var(--font-display); color:var(--ink); margin:0; line-h
 .nav a::after{ content:''; position:absolute; left:0; bottom:0; width:0; height:2px; background:var(--hi-vis); transition:width .28s var(--ease); }
 .nav a:hover{ color:#fff; }
 .nav a:hover::after{ width:100%; }
+/* nav dropdown (About submenu) */
+.nav-dd{ position:relative; display:inline-flex; align-items:center; }
+.nav-dd__trigger{ display:inline-flex; align-items:center; gap:5px; }
+.nav-dd__trigger svg{ width:11px; height:11px; transition:transform .25s var(--ease); }
+.nav-dd:hover .nav-dd__trigger svg{ transform:rotate(180deg); }
+.nav-dd__menu{ position:absolute; top:100%; left:50%; min-width:218px; transform:translateX(-50%) translateY(14px);
+  background:var(--charcoal); border:1px solid var(--line-dark); border-radius:12px; padding:8px;
+  box-shadow:var(--shadow-lg); opacity:0; visibility:hidden; z-index:70;
+  transition:opacity .25s var(--ease-out), transform .25s var(--ease-out); }
+.nav-dd__menu::before{ content:''; position:absolute; top:-16px; left:0; right:0; height:16px; }
+.nav-dd:hover .nav-dd__menu, .nav-dd:focus-within .nav-dd__menu{ opacity:1; visibility:visible; transform:translateX(-50%) translateY(6px); }
+.nav-dd__menu a{ display:block; padding:11px 14px; border-radius:8px; font-family:var(--font-display); font-weight:500; font-size:14px; color:rgba(255,255,255,.82); white-space:nowrap; }
+.nav-dd__menu a::after{ display:none !important; }
+.nav-dd__menu a:hover{ background:rgba(255,255,255,.07); color:var(--hi-vis); }
+/* mobile submenu items */
+.mobile-sub{ padding-left:24px !important; font-size:14px !important; color:var(--ink-50) !important; position:relative; }
+.mobile-sub::before{ content:''; position:absolute; left:6px; top:50%; width:9px; height:1.5px; background:var(--hi-vis); }
 .header__actions{ display:flex; align-items:center; gap:22px; margin-left:10px; }
 .link-phone{ font-family:var(--font-display); font-weight:600; color:#fff; font-size:15px; }
 .link-phone:hover{ color:var(--hi-vis); }

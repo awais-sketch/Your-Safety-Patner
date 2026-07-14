@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Open+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="styles.css?v=9" />
+<link rel="stylesheet" href="styles.css?v=10" />
 </head>
 <body>
 
@@ -33,7 +33,17 @@
       <img src="https://www.yoursafetypartners.com.au/wp-content/uploads/2024/05/YSP_Master_logo.png" alt="Your Safety Partners" class="brand__logo" />
     </a>
     <nav class="nav" aria-label="Primary">
-      <a href="about.html">About</a>
+      <div class="nav-dd">
+        <a href="about.html" class="nav-dd__trigger">About
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg>
+        </a>
+        <div class="nav-dd__menu">
+          <a href="about.html">Your Safety Partners</a>
+          <a href="#approach">Our Approach</a>
+          <a href="about.html#team">Our Team</a>
+          <a href="#clients">Our Clients</a>
+        </div>
+      </div>
       <a href="#services">Services</a>
       <a href="#approach">Our Approach</a>
       <a href="#responsibility">Responsibility</a>
@@ -48,6 +58,10 @@
   </div>
   <div class="mobile-nav" hidden>
     <a href="about.html">About</a>
+    <a href="about.html" class="mobile-sub">Your Safety Partners</a>
+    <a href="#approach" class="mobile-sub">Our Approach</a>
+    <a href="about.html#team" class="mobile-sub">Our Team</a>
+    <a href="#clients" class="mobile-sub">Our Clients</a>
     <a href="#services">Services</a>
     <a href="#approach">Our Approach</a>
     <a href="#responsibility">Responsibility</a>
@@ -135,7 +149,7 @@
 </section>
 
 <!-- ===== Trusted by ===== -->
-<section class="clients" aria-label="Trusted by">
+<section class="clients" id="clients" aria-label="Trusted by">
   <div class="wrap">
     <p class="clients__label reveal">Trusted by Australian businesses</p>
   </div>
@@ -662,6 +676,6 @@
   <div class="hazard-strip hazard-strip--footer" aria-hidden="true"></div>
 </footer>
 
-<script src="script.js?v=9"></script>
+<script src="script.js?v=10"></script>
 </body>
 </html>
