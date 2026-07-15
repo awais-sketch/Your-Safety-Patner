@@ -37,7 +37,7 @@
   /* ---- Extend scroll-reveal to section headers & key blocks ----
      (all below the hero fold, so adding the hidden state now causes no flash) */
   ['.section__head', '.faq__head', '.band__inner', '.simple__lead', '.simple__qs',
-   '.resp__text', '.resp__note', '.contact__text',
+   '.resp__text', '.resp__note', '.portal__text', '.portal__panel', '.contact__text',
    '.contact__form-wrap', '.services__cta', '.step', '.acc'
   ].forEach(function (sel) {
     document.querySelectorAll(sel).forEach(function (el, i) {
@@ -92,6 +92,29 @@
   } else {
     reveals.forEach(function (el) { el.classList.add('in'); });
   }
+
+  /* ---- Link service cards to their detail sections on services.html ---- */
+  (function () {
+    var map = {
+      'Traffic Management': 'traffic-management', 'Safety Training': 'safety-training',
+      'Machine Safety': 'machine-safety', 'Plant & Equipment': 'plant-equipment',
+      'Job Safety Analysis': 'job-safety-analysis', 'Psychosocial Health': 'psychosocial-health',
+      'Confined Spaces': 'confined-spaces', 'Working at Heights': 'working-at-heights',
+      'Contractor Management': 'contractor-management', 'Standard Operating Procedures': 'standard-operating-procedures',
+      'Incident Investigations': 'incident-investigations', 'Safety Audits': 'safety-audits'
+    };
+    document.querySelectorAll('.svc').forEach(function (card) {
+      var h = card.querySelector('h3'), link = card.querySelector('.svc__link');
+      if (!h || !link) return;
+      var id = map[h.textContent.trim()];
+      if (id) link.setAttribute('href', 'service.html?s=' + id);
+    });
+    /* On the Services overview page, point each row's button to its full detail page */
+    document.querySelectorAll('.about__row[id]').forEach(function (row) {
+      var b = row.querySelector('.btn');
+      if (b) { b.setAttribute('href', 'service.html?s=' + row.id); b.textContent = 'View this service'; }
+    });
+  })();
 
   /* ---- Mobile nav ---- */
   var burger = document.querySelector('.burger');
