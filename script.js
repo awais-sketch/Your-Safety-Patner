@@ -152,49 +152,10 @@
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
-  /* ---- Card cursor-glow (Aceternity Card Spotlight / Glowing Effect) ---- */
-  var fine = window.matchMedia('(pointer:fine)').matches;
   var reduced = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
 
-  /* ---- Comet Card: cursor-tracking 3D tilt + moving glare on the small cards ----
-     (Aceternity's CometCard, rebuilt in vanilla JS.) It's pointer-driven and
-     interactive, so we keep it even under reduced-motion — nothing moves on its own. */
-  if (fine) {
-    document.querySelectorAll('.svc, .pillar, .post, .review').forEach(function (card) {
-      card.classList.add('comet');
-      var glare = document.createElement('span');
-      glare.className = 'comet__glare';
-      card.appendChild(glare);
-      card.addEventListener('pointerenter', function () { card.classList.add('is-tilting'); });
-      card.addEventListener('pointermove', function (e) {
-        var r = card.getBoundingClientRect();
-        var px = (e.clientX - r.left) / r.width;
-        var py = (e.clientY - r.top) / r.height;
-        card.style.transform = 'perspective(1000px) rotateX(' + ((0.5 - py) * 9).toFixed(2) +
-          'deg) rotateY(' + ((px - 0.5) * 9).toFixed(2) + 'deg) scale(1.03)';
-        glare.style.setProperty('--gx', (px * 100).toFixed(1) + '%');
-        glare.style.setProperty('--gy', (py * 100).toFixed(1) + '%');
-      });
-      card.addEventListener('pointerleave', function () {
-        card.classList.remove('is-tilting');
-        card.style.transform = '';
-      });
-    });
-
-    /* ---- Hero callback card tilt ---- */
-    document.querySelectorAll('[data-tilt]').forEach(function (el) {
-      var max = 6;
-      el.addEventListener('pointermove', function (e) {
-        var r = el.getBoundingClientRect();
-        var px = (e.clientX - r.left) / r.width - 0.5;
-        var py = (e.clientY - r.top) / r.height - 0.5;
-        el.style.transform = 'perspective(900px) rotateX(' + (-py * max) + 'deg) rotateY(' + (px * max) + 'deg) translateY(-4px)';
-      });
-      el.addEventListener('pointerleave', function () {
-        el.style.transform = 'perspective(900px) rotateX(0) rotateY(0)';
-      });
-    });
-  }
+  /* Cards use a clean CSS hover lift only — no 3D tilt or glare (kept intentionally
+     restrained for a professional, editorial feel rather than playful motion). */
 
   /* ---- Count-up on numeric stats (value change conveys meaning) ---- */
   if (!reduced && 'IntersectionObserver' in window) {
