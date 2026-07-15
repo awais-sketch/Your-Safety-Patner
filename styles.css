@@ -58,7 +58,7 @@ h1,h2,h3,h4{ font-family:var(--font-display); color:var(--ink); margin:0; line-h
 /* Fill large monitors better — widen the content container on big screens */
 @media(min-width:1500px){ :root{ --wrap:1340px; } }
 @media(min-width:1800px){ :root{ --wrap:1480px; } }
-.section{ padding:108px 0; }
+.section{ padding:86px 0; }
 .hl{ color:var(--hi-vis-deep); }
 .section--dark .hl{ color:var(--hi-vis); }
 
@@ -181,7 +181,7 @@ h1,h2,h3,h4{ font-family:var(--font-display); color:var(--ink); margin:0; line-h
 }
 .hero__grid{ display:none; }
 .hero__inner{ position:relative; display:grid; grid-template-columns:1.35fr .85fr; gap:56px; padding:72px 24px 60px; align-items:center; }
-.hero__title{ font-size:clamp(2.9rem,5.6vw,4.8rem); font-weight:800; line-height:.98; letter-spacing:-.04em; color:var(--white); margin-bottom:22px; }
+.hero__title{ font-size:clamp(2.1rem,3.6vw,3.1rem); font-weight:800; line-height:1.06; letter-spacing:-.03em; color:var(--white); margin-bottom:20px; }
 @media(max-width:600px){ .hero__title{ letter-spacing:-.015em; } }
 .hero__lede{ font-size:17.5px; color:rgba(255,255,255,.72); max-width:42ch; margin:0 0 28px; line-height:1.6; }
 .hero__cta{ display:flex; gap:12px; flex-wrap:wrap; margin-bottom:30px; }
@@ -251,7 +251,7 @@ h1,h2,h3,h4{ font-family:var(--font-display); color:var(--ink); margin:0; line-h
 .section__head{ max-width:760px; margin-bottom:46px; }
 .section__head--center{ margin-inline:auto; text-align:center; }
 .section__head--split{ max-width:none; display:flex; justify-content:space-between; align-items:flex-end; gap:40px; margin-bottom:56px; }
-.section__title{ font-size:clamp(1.9rem,3vw,2.6rem); font-weight:800; letter-spacing:-.03em; line-height:1.1; }
+.section__title{ font-size:clamp(1.55rem,2.3vw,2.05rem); font-weight:700; letter-spacing:-.02em; line-height:1.16; }
 .section__sub{ font-size:17px; color:var(--ink-70); max-width:46ch; margin:18px 0 0; }
 .section__sub--center{ margin-inline:auto; }
 @media(max-width:760px){ .section__head--split{ flex-direction:column; align-items:flex-start; } }
@@ -272,7 +272,7 @@ h1,h2,h3,h4{ font-family:var(--font-display); color:var(--ink); margin:0; line-h
 /* ============================================================
    DARK SECTIONS base
    ============================================================ */
-.section--dark{ background:var(--ink); color:rgba(255,255,255,.72); padding:108px 0; position:relative; }
+.section--dark{ background:var(--ink); color:rgba(255,255,255,.72); padding:86px 0; position:relative; }
 .section--dark h2,.section--dark h3{ color:var(--white); }
 
 /* simple answers */
