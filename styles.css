@@ -386,8 +386,10 @@ h1,h2,h3,h4{ font-family:var(--font-display); color:var(--ink); margin:0; line-h
 
 /* 3-up process on dark service pages */
 .steps--3{ grid-template-columns:repeat(3,1fr); max-width:980px; margin-inline:auto; }
-.steps--3 .step{ text-align:center; padding:0 18px; }
+.steps--3 .step{ text-align:center; padding:0 18px; display:flex; flex-direction:column; align-items:center; }
 .steps--3 .step::before{ display:none !important; }
+.steps--3 .step h3{ text-align:center; }
+.steps--3 .step p{ padding:0; margin:0 auto; max-width:30ch; }
 .section--dark .step__no{ background:none; color:rgba(255,255,255,.92); width:auto; height:auto; border-radius:0; font-size:clamp(2.2rem,4vw,3rem); margin:0 auto 14px; }
 @media(max-width:760px){ .steps--3{ grid-template-columns:1fr; gap:34px; } }
 
