@@ -58,9 +58,11 @@
     if (el.classList.contains('in')) return;
     el.classList.add('in');
     if (animate) {
+      /* transform-only: content stays fully visible; this just adds a subtle rise.
+         Never animates opacity, so nothing can be left invisible. */
       el.animate(
-        [{ opacity: 0, transform: 'translateY(34px)' }, { opacity: 1, transform: 'translateY(0)' }],
-        { duration: 760, delay: (parseInt(el.getAttribute('data-delay') || '0', 10)) * 95, easing: 'cubic-bezier(.16,1,.3,1)', fill: 'backwards' }
+        [{ transform: 'translateY(22px)' }, { transform: 'translateY(0)' }],
+        { duration: 640, delay: (parseInt(el.getAttribute('data-delay') || '0', 10)) * 85, easing: 'cubic-bezier(.16,1,.3,1)', fill: 'backwards' }
       );
     }
   }

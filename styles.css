@@ -671,8 +671,10 @@ h1,h2,h3,h4{ font-family:var(--font-display); color:var(--ink); margin:0; line-h
 /* Scroll reveals are driven by the Web Animations API in script.js so they run
    regardless of the OS "reduce motion" setting. Elements are only hidden once JS
    has flagged <html> as reveal-ready — so with no JS, content stays visible. */
-.reveal-ready .reveal{ opacity:0; }
-.reveal.in{ opacity:1; }
+/* Reveals are transform-only (a subtle rise) so content is ALWAYS visible,
+   even if JS or the IntersectionObserver never runs — a section can never end
+   up stuck blank. The motion is a pure enhancement layered on visible content. */
+.reveal{ opacity:1; }
 
 @media(prefers-reduced-motion:reduce){
   html{ scroll-behavior:auto; }
