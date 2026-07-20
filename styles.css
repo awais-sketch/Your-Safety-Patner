@@ -385,8 +385,8 @@ h1,h2,h3,h4{ font-family:var(--font-display); color:var(--ink); margin:0; line-h
 .ctaband__inner p{ font-size:16.5px; color:rgba(255,255,255,.76); max-width:58ch; margin:0 auto 28px; line-height:1.6; }
 
 /* 3-up process on dark service pages */
-.steps--3{ grid-template-columns:repeat(3,1fr); max-width:980px; margin-inline:auto; }
-.steps--3 .step{ text-align:center; padding:0 18px; display:flex; flex-direction:column; align-items:center; }
+.steps--3{ grid-template-columns:repeat(3,1fr); max-width:none; margin-inline:auto; gap:44px; }
+.steps--3 .step{ text-align:center; padding:0 24px; display:flex; flex-direction:column; align-items:center; }
 .steps--3 .step::before{ display:none !important; }
 .steps--3 .step h3{ text-align:center; }
 .steps--3 .step p{ padding:0; margin:0 auto; max-width:30ch; }
