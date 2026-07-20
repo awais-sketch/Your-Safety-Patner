@@ -765,9 +765,10 @@ h1,h2,h3,h4{ font-family:var(--font-display); color:var(--ink); margin:0; line-h
 /* portal logo in footer (already white — no invert) */
 .footer__logo--portal{ filter:none; height:52px; }
 
-/* keep the 3-up steps row centered — base .steps{margin:0} is declared later in
-   the file and would otherwise override the earlier margin-inline:auto */
-.steps--3{ margin-left:auto; margin-right:auto; }
+/* keep the 3-up steps row centered AND at 3 equal columns — base .steps{margin:0;
+   grid-template-columns:repeat(4,1fr)} is declared later and would otherwise leave
+   an empty 4th column on the right and kill the centering. */
+.steps--3{ margin-left:auto; margin-right:auto; grid-template-columns:repeat(3,1fr); }
 
 /* landing header: 3-col grid so the section nav sits at the TRUE page centre
    regardless of the logo / actions widths */
