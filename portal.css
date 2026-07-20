@@ -44,8 +44,7 @@ h1,h2,h3,h4{ margin:0; color:var(--ink); font-weight:700; letter-spacing:-.02em;
   font-size:13px; font-weight:600; letter-spacing:.04em; text-transform:uppercase; color:var(--violet); }
 .eyebrow--center{ justify-content:center; }
 .eyebrow--light{ color:#c4b5fd; }
-.eyebrow__dot{ width:20px; height:2px; border-radius:2px; background:var(--violet); }
-.eyebrow--light .eyebrow__dot{ background:#a78bfa; }
+.eyebrow__dot{ display:none; }
 
 /* ---------- buttons ---------- */
 .btn{ display:inline-flex; align-items:center; justify-content:center; gap:8px; cursor:pointer;
