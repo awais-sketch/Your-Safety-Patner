@@ -226,14 +226,14 @@ h1,h2,h3,h4{ margin:0; color:var(--ink); font-weight:700; letter-spacing:-.02em;
 .review{ background:#fff; border:1px solid var(--line); border-radius:var(--r); padding:30px 28px; margin:0;
   display:flex; flex-direction:column; transition:transform .3s var(--ease), box-shadow .3s; }
 .review:hover{ transform:translateY(-4px); box-shadow:var(--sh-md); }
-.stars{ color:var(--gold); letter-spacing:2px; font-size:15px; margin-bottom:16px; }
-.review blockquote{ margin:0 0 22px; font-size:15px; color:var(--ink); line-height:1.6; flex:1; }
+.stars{ color:var(--gold); letter-spacing:1.5px; font-size:13.5px; margin-bottom:14px; }
+.review blockquote{ margin:0 0 20px; font-size:13.5px; color:#334155; line-height:1.6; flex:1; }
 .review figcaption{ display:flex; align-items:center; gap:13px; border-top:1px solid var(--line); padding-top:20px; }
 .review__av{ width:44px; height:44px; border-radius:50%; flex-shrink:0; display:grid; place-items:center;
   font-size:14px; font-weight:700; color:#fff; background:linear-gradient(135deg,#7c3aed,#4f46e5); }
 .review__who{ display:flex; flex-direction:column; line-height:1.35; min-width:0; }
-.review__who strong{ font-size:15px; font-weight:600; color:var(--ink); }
-.review__who span{ font-size:12.5px; color:var(--muted); }
+.review__who strong{ font-size:14px; font-weight:600; color:var(--ink); }
+.review__who span{ font-size:12px; color:var(--muted); }
 .review__co{ color:var(--faint); }
 
 /* ============================================================
