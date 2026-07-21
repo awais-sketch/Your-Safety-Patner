@@ -298,8 +298,10 @@ h1,h2,h3,h4{ margin:0; color:var(--ink); font-weight:700; letter-spacing:-.02em;
 /* ============================================================
    HERO — rebuilt (richer)
    ============================================================ */
-.hero__inner{ align-items:center; padding:76px 28px 52px; }
-.hero__title{ font-size:clamp(2rem,3.6vw,3.05rem); line-height:1.08; }
+.hero__inner{ grid-template-columns:minmax(0,1fr) 410px; gap:56px; align-items:start; padding:72px 28px 52px; }
+@media(max-width:960px){ .hero__inner{ grid-template-columns:1fr; gap:40px; } }
+.hero__content{ padding-top:6px; }
+.hero__title{ font-size:clamp(2rem,3.4vw,2.85rem); line-height:1.08; }
 .hero__pill{ display:inline-flex; align-items:center; gap:10px; font-size:13px; font-weight:600; color:var(--ink);
   background:#fff; border:1px solid var(--line); border-radius:999px; padding:7px 15px; margin-bottom:22px; box-shadow:var(--sh-sm); }
 .hero__pill .stars{ color:var(--gold); font-size:12px; letter-spacing:1px; }
