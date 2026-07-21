@@ -96,16 +96,16 @@ h1,h2,h3,h4{ margin:0; color:var(--ink); font-weight:800; letter-spacing:-.03em;
    blue glow flowing on white */
 .mesh{ position:absolute; border-radius:50%; filter:blur(80px); will-change:transform; }
 .mesh--1{ width:50vw; height:60vw; max-width:640px; max-height:760px; top:4%; left:36%;
-  background:radial-gradient(circle, rgba(37,99,235,.62), transparent 66%); }
+  background:radial-gradient(circle, rgba(37,99,235,.78), transparent 68%); }
 .mesh--2{ width:42vw; height:52vw; max-width:560px; max-height:660px; top:-4%; left:44%;
-  background:radial-gradient(circle, rgba(56,189,248,.58), transparent 66%); }
+  background:radial-gradient(circle, rgba(56,189,248,.72), transparent 68%); }
 .mesh--3{ width:40vw; height:42vw; max-width:520px; max-height:540px; top:24%; left:26%;
-  background:radial-gradient(circle, rgba(59,130,246,.5), transparent 66%); }
+  background:radial-gradient(circle, rgba(59,130,246,.64), transparent 68%); }
 .mesh--4{ width:30vw; height:46vw; max-width:380px; max-height:580px; top:6%; left:0%;
-  background:radial-gradient(circle, rgba(96,165,250,.34), transparent 68%); }
+  background:radial-gradient(circle, rgba(96,165,250,.46), transparent 68%); }
 /* soft white veil so the centred text stays readable over the colour */
 .hero__veil{ position:absolute; inset:0;
-  background:radial-gradient(60% 54% at 50% 50%, rgba(255,255,255,.62), rgba(255,255,255,.1) 62%, transparent 82%); }
+  background:radial-gradient(58% 52% at 50% 50%, rgba(255,255,255,.5), rgba(255,255,255,.06) 62%, transparent 82%); }
 .hero__grid{ position:absolute; inset:0; opacity:.6;
   background-image:linear-gradient(rgba(15,23,42,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(15,23,42,.04) 1px,transparent 1px);
   background-size:58px 58px; -webkit-mask-image:radial-gradient(120% 80% at 50% 0%,#000 26%,transparent 72%); mask-image:radial-gradient(120% 80% at 50% 0%,#000 26%,transparent 72%); }
