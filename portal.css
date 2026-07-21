@@ -485,18 +485,8 @@ h1,h2,h3,h4{ margin:0; color:var(--ink); font-weight:700; letter-spacing:-.02em;
   mix-blend-mode:multiply; transition:opacity var(--dur-fast) var(--e-out),
   transform var(--dur-base) var(--e-out); }
 .hero__logos-row li:hover img{ opacity:1; transform:translateY(-3px); }
-/* Optical balance — wide marks smaller, tall marks larger, so all read equal */
-.hero__logos-row img[alt="Air BP"]    { max-height:34px; }
-.hero__logos-row img[alt="Coles"]     { max-height:40px; }
-.hero__logos-row img[alt="Veolia"]    { max-height:30px; }
-.hero__logos-row img[alt="Kookaburra"]{ max-height:46px; }
-.hero__logos-row img[alt="Turosi"]    { max-height:28px; }
-.hero__logos-row img[alt="Godfreys"]  { max-height:29px; }
 @media(max-width:820px){
   .hero__logos-row{ grid-template-columns:repeat(3,1fr); gap:22px 0; }
-  .hero__logos-row li{ min-height:40px; }
-  .hero__logos-row img{ max-height:32px !important; }
-  .hero__logos-row img[alt="Kookaburra"]{ max-height:38px !important; }
 }
 
 /* ---- Entrance choreography ------------------------------------------- */
@@ -696,6 +686,23 @@ h1,h2,h3,h4{ margin:0; color:var(--ink); font-weight:700; letter-spacing:-.02em;
 @media(prefers-reduced-motion:reduce){
   .hero__badge,.hero__stats li,.offer-card__float,.hero__blob{
     animation:none !important; opacity:1 !important; transform:none !important; }
+}
+
+/* ---- Logo strip: identical box per logo, so the row reads as one line ----
+   Every mark is scaled to fit the SAME 46x118 box and centred in it, instead
+   of per-logo heights (which made the square Kookaburra tower over the
+   wordmarks). Square/stacked marks get a small trim so nothing dominates. */
+.hero__logos-row li{ min-height:0; height:46px; padding:0 12px; }
+.hero__logos-row img{ height:auto; width:auto; max-height:36px; max-width:118px;
+  object-fit:contain; }
+/* Only two exceptions: the stacked/square marks, trimmed so the row stays level */
+.hero__logos-row img[alt="Coles"]     { max-height:38px; }
+.hero__logos-row img[alt="Kookaburra"]{ max-height:34px; }
+@media(max-width:820px){
+  .hero__logos-row li{ height:38px; }
+  .hero__logos-row img{ max-width:94px !important; max-height:34px !important; }
+  .hero__logos-row img[alt="Coles"]{ max-height:31px !important; }
+  .hero__logos-row img[alt="Kookaburra"]{ max-height:28px !important; }
 }
 
 /* Nav CTA sits directly above the hero — brand purple like the portal header.
