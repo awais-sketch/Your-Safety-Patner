@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="portal.css?v=40" />
+<link rel="stylesheet" href="portal.css?v=41" />
 </head>
 <body>
 
@@ -42,7 +42,7 @@
   <div class="wrap hero__inner">
     <div class="hero__content">
       <div class="hero__pill"><span class="stars">★★★★★</span> 5.0 on Google <span class="hero__pill-sep"></span> Trusted by 200+ Australian sites</div>
-      <h1 class="hero__title">Stop guessing whether your <span class="grad">WHS documents are compliant</span></h1>
+      <h1 class="hero__title">Stop guessing whether your<br class="hbr"> <span class="grad">WHS documents<br class="hbr"> are compliant</span></h1>
       <p class="hero__lede">Get 50% off a WHS Documentation Compliance Review, delivered through Your Safety Portal with 14 days of access included, reviewed by certified consultants, not templates.</p>
       <div class="hero__cta">
         <a href="#request" class="btn btn--primary btn--lg">Claim my 50% off <span class="arr">→</span></a>
@@ -371,9 +371,9 @@
   var orbs = Array.prototype.slice.call(document.querySelectorAll('.hero .orb'));
   if (!orbs.length || !window.requestAnimationFrame) return;
   var conf = [
-    { ax: 46, ay: 34, sx: 0.00022, sy: 0.00017, ph: 0.0, ps: 0.10 },
-    { ax: 54, ay: 40, sx: 0.00018, sy: 0.00025, ph: 2.1, ps: 0.12 },
-    { ax: 40, ay: 46, sx: 0.00026, sy: 0.00020, ph: 4.2, ps: 0.09 }
+    { ax: 80, ay: 60, sx: 0.00040, sy: 0.00031, ph: 0.0, ps: 0.14 },
+    { ax: 92, ay: 70, sx: 0.00034, sy: 0.00044, ph: 2.1, ps: 0.16 },
+    { ax: 70, ay: 78, sx: 0.00046, sy: 0.00036, ph: 4.2, ps: 0.13 }
   ];
   var start = null;
   function tick(t) {

@@ -355,16 +355,23 @@ h1,h2,h3,h4{ margin:0; color:var(--ink); font-weight:700; letter-spacing:-.02em;
   radial-gradient(90% 80% at -5% 105%, rgba(99,102,241,.08), transparent 58%),
   linear-gradient(180deg,#fbfaff 0%,#ffffff 66%); }
 
+/* Slightly brighter drifting orbs so the ambient motion reads clearly */
+.orb--1{ opacity:.62; }
+.orb--2{ opacity:.58; }
+.orb--3{ opacity:.5; }
+
 /* Trust chip — glassy, cleaner */
 .hero__pill{ background:rgba(255,255,255,.86); backdrop-filter:blur(8px);
   -webkit-backdrop-filter:blur(8px); border-color:#ece9fb; }
 .hero__pill .stars{ letter-spacing:2px; }
 
-/* Title — sharper cut, richer gradient */
-.hero__title{ letter-spacing:-.035em; }
+/* Title — sharper cut, richer gradient, 3-line rhythm */
+.hero__title{ letter-spacing:-.035em; line-height:1.16; margin:0 0 22px; }
+.hbr{ display:inline; }
+@media(max-width:620px){ .hbr{ display:none; } }
 .grad{ background:linear-gradient(115deg,#7c3aed 0%,#6366f1 52%,#4f46e5 100%);
   -webkit-background-clip:text; background-clip:text; color:transparent; }
-.hero__lede{ font-size:17px; }
+.hero__lede{ font-size:17px; margin-bottom:30px; }
 
 /* Points — softer tick chips */
 .hero__points .tick{ display:inline-grid; place-items:center; width:18px; height:18px;
