@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="portal.css?v=21" />
+<link rel="stylesheet" href="portal.css?v=22" />
 </head>
 <body>
 
@@ -397,10 +397,9 @@
     heroEl.addEventListener('pointerleave', function () { mtx = 0; mty = 0; });
     (function flow(t) {
       var s = (t || 0) / 1000;
-      var a = (s * 13) % 280;   /* ribbon layer speed */
-      var b = (s * 9) % 200;    /* streak layer speed */
-      aurora.style.backgroundPosition = a.toFixed(1) + '% 50%, ' + b.toFixed(1) + '% 50%';
-      mcx += (mtx - mcx) * 0.06; mcy += (mty - mcy) * 0.06; /* ease toward cursor */
+      var a = (s * 4) % 200;   /* slow, smooth flow */
+      aurora.style.backgroundPosition = a.toFixed(2) + '% 50%';
+      mcx += (mtx - mcx) * 0.05; mcy += (mty - mcy) * 0.05; /* ease toward cursor */
       aurora.style.transform = 'translate3d(' + mcx.toFixed(1) + 'px,' + mcy.toFixed(1) + 'px,0)';
       requestAnimationFrame(flow);
     })(0);
