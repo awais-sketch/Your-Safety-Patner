@@ -96,12 +96,22 @@ h1,h2,h3,h4{ margin:0; color:var(--ink); font-weight:700; letter-spacing:-.02em;
 /* ============================================================
    HERO (light)
    ============================================================ */
-.hero{ position:relative; overflow:hidden; background:
-  radial-gradient(120% 90% at 85% -10%, #f4f1fe 0%, transparent 55%),
-  linear-gradient(180deg, #fbfaff 0%, #ffffff 60%); }
-.hero__glow{ position:absolute; top:-160px; right:-120px; width:620px; height:620px; pointer-events:none;
-  background:radial-gradient(circle, rgba(109,40,217,.16), transparent 62%); filter:blur(10px); }
-.hero__inner{ position:relative; display:grid; grid-template-columns:1.15fr .85fr; gap:60px; align-items:center; padding:80px 28px 88px; }
+.hero{ position:relative; overflow:hidden; background:linear-gradient(180deg,#fbfaff 0%,#ffffff 62%); }
+/* animated ambient background */
+.hero__bgfx{ position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:0; }
+.orb{ position:absolute; border-radius:50%; filter:blur(64px); will-change:transform; }
+.orb--1{ width:560px; height:560px; top:-170px; right:-90px; opacity:.55;
+  background:radial-gradient(circle, rgba(124,58,237,.5), transparent 68%); }
+.orb--2{ width:480px; height:480px; top:50px; left:-150px; opacity:.5;
+  background:radial-gradient(circle, rgba(79,70,229,.42), transparent 68%); }
+.orb--3{ width:420px; height:420px; bottom:-190px; left:44%; opacity:.42;
+  background:radial-gradient(circle, rgba(167,139,250,.5), transparent 68%); }
+.hero__grid{ position:absolute; inset:0; opacity:.6;
+  background-image:linear-gradient(rgba(15,23,42,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(15,23,42,.04) 1px,transparent 1px);
+  background-size:56px 56px;
+  -webkit-mask-image:radial-gradient(120% 85% at 50% 0%,#000 28%,transparent 72%);
+  mask-image:radial-gradient(120% 85% at 50% 0%,#000 28%,transparent 72%); }
+.hero__inner{ position:relative; z-index:1; display:grid; grid-template-columns:1.15fr .85fr; gap:60px; align-items:center; padding:80px 28px 88px; }
 .hero__title{ font-size:clamp(1.8rem,3vw,2.55rem); font-weight:800; letter-spacing:-.03em; line-height:1.12; margin:0 0 18px; }
 .grad{ background:linear-gradient(120deg,#7c3aed,#4f46e5); -webkit-background-clip:text; background-clip:text; color:transparent; }
 .hero__lede{ font-size:16.5px; color:var(--body); max-width:46ch; margin:0 0 28px; line-height:1.6; }

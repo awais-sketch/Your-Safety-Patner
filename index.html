@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="portal.css?v=8" />
+<link rel="stylesheet" href="portal.css?v=9" />
 </head>
 <body>
 
@@ -33,7 +33,12 @@
 
 <!-- ===== Hero ===== -->
 <section class="hero">
-  <div class="hero__glow" aria-hidden="true"></div>
+  <div class="hero__bgfx" aria-hidden="true">
+    <span class="orb orb--1"></span>
+    <span class="orb orb--2"></span>
+    <span class="orb orb--3"></span>
+    <span class="hero__grid"></span>
+  </div>
   <div class="wrap hero__inner">
     <div class="hero__content">
       <p class="eyebrow">Limited offer for Australian businesses</p>
@@ -336,5 +341,33 @@
   </div>
 </footer>
 
+<script>
+/* Hero background: JS-driven drifting + breathing glow orbs.
+   requestAnimationFrame runs regardless of the OS "reduce motion" setting,
+   so the ambient motion is visible while staying soft (blurred, no sharp moves). */
+(function () {
+  var orbs = Array.prototype.slice.call(document.querySelectorAll('.hero .orb'));
+  if (!orbs.length || !window.requestAnimationFrame) return;
+  var conf = [
+    { ax: 46, ay: 34, sx: 0.00022, sy: 0.00017, ph: 0.0, ps: 0.10 },
+    { ax: 54, ay: 40, sx: 0.00018, sy: 0.00025, ph: 2.1, ps: 0.12 },
+    { ax: 40, ay: 46, sx: 0.00026, sy: 0.00020, ph: 4.2, ps: 0.09 }
+  ];
+  var start = null;
+  function tick(t) {
+    if (start === null) start = t;
+    var e = t - start;
+    for (var i = 0; i < orbs.length; i++) {
+      var c = conf[i % conf.length];
+      var x = Math.sin(e * c.sx + c.ph) * c.ax;
+      var y = Math.cos(e * c.sy + c.ph) * c.ay;
+      var s = 1 + Math.sin(e * c.sx * 1.4 + c.ph) * c.ps;
+      orbs[i].style.transform = 'translate3d(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px,0) scale(' + s.toFixed(3) + ')';
+    }
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+})();
+</script>
 </body>
 </html>
