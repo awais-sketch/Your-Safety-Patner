@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="portal.css?v=19" />
+<link rel="stylesheet" href="portal.css?v=20" />
 </head>
 <body>
 
@@ -386,12 +386,22 @@
      Driven per-frame by requestAnimationFrame so it always runs (reduce-motion safe)
      and never depends on WAAPI interpolating a comma-separated background-position. */
   var aurora = document.querySelector('.hero__aurora');
-  if (aurora && window.requestAnimationFrame) {
+  var heroEl = document.querySelector('.hero');
+  if (aurora && heroEl && window.requestAnimationFrame) {
+    var mtx = 0, mty = 0, mcx = 0, mcy = 0, AMP = 46; /* mouse parallax amplitude (px) */
+    heroEl.addEventListener('pointermove', function (e) {
+      var r = heroEl.getBoundingClientRect();
+      mtx = (((e.clientX - r.left) / r.width) - 0.5) * 2 * AMP;
+      mty = (((e.clientY - r.top) / r.height) - 0.5) * 2 * AMP;
+    });
+    heroEl.addEventListener('pointerleave', function () { mtx = 0; mty = 0; });
     (function flow(t) {
       var s = (t || 0) / 1000;
       var a = (s * 13) % 280;   /* ribbon layer speed */
       var b = (s * 9) % 200;    /* streak layer speed */
       aurora.style.backgroundPosition = a.toFixed(1) + '% 50%, ' + b.toFixed(1) + '% 50%';
+      mcx += (mtx - mcx) * 0.06; mcy += (mty - mcy) * 0.06; /* ease toward cursor */
+      aurora.style.transform = 'translate3d(' + mcx.toFixed(1) + 'px,' + mcy.toFixed(1) + 'px,0)';
       requestAnimationFrame(flow);
     })(0);
   }

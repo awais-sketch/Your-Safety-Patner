@@ -109,7 +109,7 @@ h1,h2,h3,h4{ margin:0; color:var(--ink); font-weight:800; letter-spacing:-.03em;
   background-size:58px 58px; -webkit-mask-image:radial-gradient(120% 80% at 50% 0%,#000 26%,transparent 72%); mask-image:radial-gradient(120% 80% at 50% 0%,#000 26%,transparent 72%); }
 .hero__inner{ position:relative; z-index:1; text-align:center; padding:82px 26px 78px; }
 .hero .slabel{ justify-content:center; }
-.hero__title{ font-size:clamp(2.4rem,5.4vw,4.1rem); font-weight:800; letter-spacing:-.035em; line-height:1.03; margin:0 0 22px; }
+.hero__title{ font-size:clamp(2.1rem,4.4vw,3.4rem); font-weight:800; letter-spacing:-.035em; line-height:1.05; margin:0 0 22px; }
 .hero__lede{ font-size:clamp(16.5px,1.4vw,18.5px); color:var(--body); max-width:60ch; margin:0 auto 30px; line-height:1.6; }
 .hero__cta{ display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-bottom:30px; }
 .hero__trust{ display:inline-flex; align-items:center; gap:16px; flex-wrap:wrap; justify-content:center; font-size:13.5px; color:var(--muted); }
