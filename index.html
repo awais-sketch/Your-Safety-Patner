@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="portal.css?v=18" />
+<link rel="stylesheet" href="portal.css?v=19" />
 </head>
 <body>
 
@@ -383,13 +383,17 @@
    Both are JS-driven so they run regardless of the OS reduce-motion setting. */
 (function () {
   /* Aceternity-style aurora: flowing gradient ribbons that travel across the hero.
-     WAAPI drives the background-position so it runs even with OS reduce-motion on. */
+     Driven per-frame by requestAnimationFrame so it always runs (reduce-motion safe)
+     and never depends on WAAPI interpolating a comma-separated background-position. */
   var aurora = document.querySelector('.hero__aurora');
-  if (aurora && aurora.animate) {
-    aurora.animate(
-      [{ backgroundPosition: '0% 50%, 0% 50%' }, { backgroundPosition: '280% 50%, 200% 50%' }],
-      { duration: 22000, iterations: Infinity, easing: 'linear' }
-    );
+  if (aurora && window.requestAnimationFrame) {
+    (function flow(t) {
+      var s = (t || 0) / 1000;
+      var a = (s * 13) % 280;   /* ribbon layer speed */
+      var b = (s * 9) % 200;    /* streak layer speed */
+      aurora.style.backgroundPosition = a.toFixed(1) + '% 50%, ' + b.toFixed(1) + '% 50%';
+      requestAnimationFrame(flow);
+    })(0);
   }
   /* Flowing headline gradient — WAAPI bypasses OS reduce-motion gating. */
   var grad = document.querySelector('.hero__title .grad');
