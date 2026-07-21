@@ -295,6 +295,53 @@ h1,h2,h3,h4{ margin:0; color:var(--ink); font-weight:700; letter-spacing:-.02em;
 @media(max-width:900px){ .footer__inner{ grid-template-columns:1fr 1fr; gap:32px; } }
 @media(max-width:560px){ .footer__inner{ grid-template-columns:1fr; } .footer__bar-inner{ flex-direction:column; gap:8px; text-align:center; } }
 
+/* ============================================================
+   HERO — rebuilt (richer)
+   ============================================================ */
+.hero__inner{ align-items:center; padding:76px 28px 52px; }
+.hero__title{ font-size:clamp(2rem,3.6vw,3.05rem); line-height:1.08; }
+.hero__pill{ display:inline-flex; align-items:center; gap:10px; font-size:13px; font-weight:600; color:var(--ink);
+  background:#fff; border:1px solid var(--line); border-radius:999px; padding:7px 15px; margin-bottom:22px; box-shadow:var(--sh-sm); }
+.hero__pill .stars{ color:var(--gold); font-size:12px; letter-spacing:1px; }
+.hero__pill-sep{ width:4px; height:4px; border-radius:50%; background:var(--faint); }
+.hero__cta{ display:flex; gap:12px; flex-wrap:wrap; margin:0 0 22px; }
+.hero__points{ list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:10px 22px; }
+.hero__points li{ display:inline-flex; align-items:center; gap:8px; font-size:14px; font-weight:500; color:var(--body); }
+.tick{ width:18px; height:18px; border-radius:50%; background:var(--violet-soft); color:var(--violet); display:grid; place-items:center; flex-shrink:0; }
+
+/* offer card — enhanced */
+.offer-card{ overflow:hidden; }
+.offer-card__ribbon{ position:absolute; top:16px; left:-40px; transform:rotate(-45deg); background:var(--violet); color:#fff;
+  font-size:10px; font-weight:700; letter-spacing:.04em; padding:5px 44px; box-shadow:0 6px 16px -8px rgba(109,40,217,.6); }
+.offer-card__head{ display:flex; align-items:center; gap:10px; margin-bottom:14px; }
+.offer-card__badge{ position:static; top:auto; right:auto; box-shadow:none; }
+.offer-card__save{ font-size:11.5px; font-weight:700; color:var(--violet); background:var(--violet-soft); padding:5px 11px; border-radius:20px; }
+.offer-card__price .per,.offer-card__per{ font-size:12.5px; color:var(--muted); align-self:flex-end; margin-bottom:6px; }
+.offer-card__ndot{ display:inline-block; width:3px; height:3px; border-radius:50%; background:var(--faint); margin:0 5px; vertical-align:middle; }
+/* mini portal peek inside the card */
+.offer-card__peek{ background:var(--navy-2); border-radius:12px; padding:14px 14px 13px; margin:16px 0 18px; }
+.peek__top{ display:flex; align-items:center; gap:6px; margin-bottom:12px; }
+.peek__dot{ width:8px; height:8px; border-radius:50%; background:rgba(255,255,255,.2); }
+.peek__dot:first-child{ background:var(--violet-2); }
+.peek__top em{ margin-left:8px; font-style:normal; font-size:11px; color:rgba(255,255,255,.6); }
+.peek__row{ display:flex; justify-content:space-between; align-items:center; font-size:12px; color:rgba(255,255,255,.72); margin-bottom:9px; }
+.peek__tag{ font-size:10px; font-weight:700; letter-spacing:.03em; color:#c4b5fd; background:rgba(124,58,237,.22); padding:3px 9px; border-radius:20px; }
+.peek__bar{ height:6px; background:rgba(255,255,255,.1); border-radius:20px; overflow:hidden; margin-bottom:14px; }
+.peek__bar i{ display:block; height:100%; background:linear-gradient(90deg,#7c3aed,#6366f1); border-radius:20px; }
+.peek__stats{ display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
+.peek__stats div{ text-align:center; }
+.peek__stats b{ display:block; font-size:16px; font-weight:800; color:#a78bfa; letter-spacing:-.02em; }
+.peek__stats span{ font-size:10px; color:rgba(255,255,255,.5); }
+
+/* hero client logos strip */
+.hero__logos{ position:relative; z-index:1; display:flex; align-items:center; gap:34px; flex-wrap:wrap;
+  margin-top:8px; padding-top:34px; border-top:1px solid var(--line); }
+.hero__logos-label{ font-size:11.5px; font-weight:600; letter-spacing:.05em; text-transform:uppercase; color:var(--faint); flex-shrink:0; }
+.hero__logos-row{ display:flex; align-items:center; gap:36px; flex-wrap:wrap; }
+.hero__logos-row img{ height:26px; width:auto; object-fit:contain; opacity:.85; mix-blend-mode:multiply; transition:opacity .3s; }
+.hero__logos-row img:hover{ opacity:1; }
+@media(max-width:640px){ .hero__logos{ gap:18px; } .hero__logos-row{ gap:22px; } .hero__logos-row img{ height:20px; } }
+
 /* ---------- scroll reveal (transform-only, content always visible) ---------- */
 .reveal{ opacity:1; }
 @media(prefers-reduced-motion:reduce){ html{ scroll-behavior:auto; } }
