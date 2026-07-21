@@ -600,3 +600,106 @@ h1,h2,h3,h4{ margin:0; color:var(--ink); font-weight:700; letter-spacing:-.02em;
 .hero__logos-label{ color:var(--b-muted); }
 
 .hero :focus-visible{ outline-color:var(--b-purple); }
+
+/* ========================================================================
+   HERO v4 — matched to yoursafetyportal.com.au: light + airy, violet blob,
+   pill badge, clean navy headline, big stat numbers, light offer card
+   with a floating chip. Replaces the heavy dark-block treatment.
+   ======================================================================== */
+.hero{ background:linear-gradient(180deg,#fbfaff 0%,#fdfdff 48%,#fff 100%); overflow:hidden; }
+.hero__grid{ opacity:.35; }
+.hero__bgfx::after{ display:none; }              /* drop the sheen band */
+/* Soft violet blob behind the card — the reference's signature glow */
+.hero__blob{ position:absolute; top:-14%; right:-8%; width:780px; height:780px; border-radius:50%;
+  background:radial-gradient(circle at 50% 50%, rgba(127,34,254,.16), rgba(237,233,254,.5) 42%, transparent 68%);
+  filter:blur(18px); animation:ysp-drift 18s ease-in-out infinite alternate; }
+@keyframes ysp-drift{ from{ transform:translate3d(0,0,0) scale(1); }
+  to{ transform:translate3d(-34px,26px,0) scale(1.06); } }
+
+.hero__inner{ grid-template-columns:minmax(0,1fr) 400px; gap:80px;
+  align-items:center; padding:96px 28px 64px; }
+
+/* Badge pill (replaces the dash eyebrow) */
+.hero__badge{ display:inline-block; margin:0 0 26px; padding:9px 16px; border-radius:8px;
+  background:var(--b-violet); color:var(--b-purple);
+  font-size:12.5px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; }
+
+/* Headline — clean navy, no marker */
+.hero__title{ font-size:clamp(2.2rem,3.7vw,3.3rem); line-height:1.08; letter-spacing:-.025em;
+  color:var(--b-ink); margin:0 0 22px; max-width:none; text-wrap:balance; }
+.hero__lede{ font-size:18px; line-height:1.65; color:var(--b-muted); max-width:52ch; margin:0 0 34px; }
+
+/* CTAs — purple solid + purple outline, like the reference pair */
+.hero .btn--lg{ padding:16px 28px; font-size:15.5px; font-weight:700; border-radius:10px; }
+.hero .btn--outline{ border:1.5px solid rgba(112,8,231,.35); color:var(--b-purple); background:#fff; }
+.hero .btn--outline:hover{ border-color:var(--b-purple); background:var(--b-violet-2); color:var(--b-purple); }
+.hero__cta{ margin:0 0 42px; gap:14px; }
+
+/* Stat row — big numbers, label underneath */
+.hero__stats{ list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:16px 52px; }
+.hero__stats li{ display:flex; flex-direction:column; gap:4px; }
+.hero__stats strong{ font-family:'Hanken Grotesk',Inter,sans-serif; font-size:34px; font-weight:800;
+  letter-spacing:-.03em; color:var(--b-ink); line-height:1; }
+.hero__stats span{ font-size:13.5px; color:var(--b-muted); }
+
+/* ---------- Offer card — light, layered, violet accents ---------- */
+.offer-card{ background:#fff; color:var(--b-muted); border:1px solid #ece9f7; border-radius:20px;
+  padding:30px 28px 26px; overflow:visible; margin-top:0;
+  box-shadow:0 24px 60px -28px rgba(112,8,231,.32), 0 2px 6px rgba(16,24,40,.04); }
+.offer-card::after{ display:none; }
+.offer-card:hover{ box-shadow:0 34px 70px -28px rgba(112,8,231,.42), 0 2px 6px rgba(16,24,40,.05); }
+.offer-card__tag{ display:inline-block; background:var(--b-violet); color:var(--b-purple);
+  padding:6px 12px; border-radius:6px; margin:0 0 20px; font-size:11px; letter-spacing:.1em; }
+.offer-card__price .now{ color:var(--b-ink); font-size:52px; }
+.offer-card__price .was{ color:#9aa1ad; font-size:16px; }
+.offer-card__off{ color:var(--b-purple); font-size:11.5px; }
+.offer-card__label{ color:var(--b-muted); font-size:12.5px; }
+.offer-card__list{ border-top:1px solid #eef0f4; }
+.offer-card__list li{ color:#364153; font-size:13.5px; }
+.offer-card__list .check{ background:var(--b-violet); color:var(--b-purple); }
+.offer-card__note{ color:#9aa1ad; }
+.hero .btn--accent{ background:var(--b-purple); color:#fff; }
+.hero .btn--accent:hover{ background:var(--b-purple-2); }
+
+/* Floating review chip — echoes the reference's floating cards */
+.offer-card__float{ position:absolute; left:-26px; bottom:34px; z-index:2;
+  display:inline-flex; align-items:center; gap:8px; background:#fff; border:1px solid #eef0f4;
+  border-radius:12px; padding:10px 14px; font-size:12.5px; font-weight:600; color:var(--b-ink);
+  box-shadow:0 14px 30px -14px rgba(16,24,40,.28); white-space:nowrap;
+  animation:ysp-float 5.5s ease-in-out infinite alternate; }
+.offer-card__float .stars{ color:var(--b-gold); font-size:12px; letter-spacing:1px; }
+@keyframes ysp-float{ from{ transform:translateY(0); } to{ transform:translateY(-9px); } }
+
+/* Entrance — rewire to the new elements */
+.hero__badge,.hero__stats li,.offer-card__float{
+  animation:ysp-rise var(--dur-enter) var(--e-out) both; }
+.hero__badge{ animation-delay:60ms; }
+.hero__stats li{ animation-delay:calc(470ms + var(--n,0) * 80ms); }
+.hero__stats li:nth-child(1){ --n:0; } .hero__stats li:nth-child(2){ --n:1; }
+.hero__stats li:nth-child(3){ --n:2; }
+.offer-card__float{ animation:ysp-rise var(--dur-enter) var(--e-out) 700ms both,
+  ysp-float 5.5s ease-in-out 1300ms infinite alternate; }
+
+@media(max-width:1080px){ .hero__inner{ grid-template-columns:minmax(0,1fr) 360px; gap:48px; } }
+@media(max-width:960px){
+  .hero__inner{ grid-template-columns:1fr; gap:44px; padding-top:72px; }
+  .hero__title{ max-width:none; }
+  .offer-card__float{ left:auto; right:16px; bottom:-18px; }
+  .hero__blob{ width:520px; height:520px; right:-24%; }
+}
+@media(max-width:560px){
+  .hero__stats{ gap:18px 32px; }
+  .hero__stats strong{ font-size:28px; }
+  .offer-card__float{ display:none; }
+}
+
+@media(prefers-reduced-motion:reduce){
+  .hero__badge,.hero__stats li,.offer-card__float,.hero__blob{
+    animation:none !important; opacity:1 !important; transform:none !important; }
+}
+
+/* Nav CTA sits directly above the hero — brand purple like the portal header.
+   Revert = delete these three lines (the rest of the page is untouched). */
+.nav .btn--primary{ background:var(--b-purple); color:#fff; border-radius:8px; }
+.nav .btn--primary:hover{ background:var(--b-purple-2);
+  box-shadow:0 12px 24px -14px rgba(112,8,231,.6); }
