@@ -539,3 +539,64 @@ h1,h2,h3,h4{ margin:0; color:var(--ink); font-weight:700; letter-spacing:-.02em;
   .hero__title .hl::before{ transform:skew(-3deg) !important; }
   .hero__logos-row li:hover img,.offer-card:hover,.btn:active{ transform:none !important; }
 }
+
+/* ========================================================================
+   HERO — brand colours, sampled from yoursafetyportal.com.au.
+   Purple = actions/structure. Gold = small sharp highlight only.
+   Scoped to .hero so the rest of the page is untouched.
+   ======================================================================== */
+:root{
+  --b-purple:#7008e7;   /* portal primary button */
+  --b-purple-2:#7f22fe; /* lighter purple (hover / on dark) */
+  --b-violet:#ede9fe;   /* soft violet tint */
+  --b-violet-2:#f5f3ff;
+  --b-ink:#1e2939;      /* portal headings */
+  --b-dark:#101828;     /* portal dark section */
+  --b-gold:#ffb900;     /* portal gold accent */
+  --b-muted:#6a7282;
+  --b-line:#e5e7eb;
+  --b-bg:#f9fafb;
+}
+
+/* Canvas: white with a faint violet wash at the top — tint only, no gradient text */
+.hero{ background:linear-gradient(180deg,var(--b-violet-2) 0%,var(--b-bg) 44%,#fff 100%); }
+.hero__grid{ background-image:repeating-linear-gradient(115deg,
+  rgba(112,8,231,.045) 0 1px, transparent 1px 84px); }
+.hero__bgfx::after{ background:linear-gradient(115deg, transparent,
+  rgba(255,255,255,.6) 45%, transparent); }
+
+/* Type */
+.hero__eyebrow{ color:var(--b-muted); }
+.hero__dash{ background:var(--b-purple); }
+.hero__title{ color:var(--b-ink); }
+.hero__title .hl{ color:var(--b-ink); }
+.hero__title .hl::before{ background:var(--b-gold); }
+.hero__sub{ color:var(--b-ink); }
+.hero__lede{ color:var(--b-muted); }
+.hero__points li{ color:#364153; }
+.hero__points li::before{ background:var(--b-purple); }
+.hero__points li::after{ background:var(--b-line); }
+
+/* CTAs — brand purple, flat, 8px radius like the portal */
+.hero .btn--primary{ background:var(--b-purple); color:#fff; border-radius:8px; }
+.hero .btn--primary:hover{ background:var(--b-purple-2);
+  box-shadow:0 14px 26px -16px rgba(112,8,231,.65); }
+.hero .btn--outline{ border-color:var(--b-line); color:var(--b-ink); border-radius:8px; }
+.hero .btn--outline:hover{ border-color:var(--b-purple); color:var(--b-purple); }
+
+/* Offer card — portal dark navy, gold highlight, purple action */
+.offer-card{ background:var(--b-dark); box-shadow:0 30px 60px -34px rgba(16,24,40,.55); }
+.offer-card::after{ background:var(--b-gold); }
+.offer-card:hover{ box-shadow:0 40px 70px -32px rgba(112,8,231,.45); }
+.offer-card__tag{ color:var(--b-gold); }
+.offer-card__off{ color:var(--b-gold); }
+.offer-card__list .check{ background:rgba(127,34,254,.2); color:#c4a5ff; }
+.hero .btn--accent{ background:var(--b-purple-2); color:#fff; border-radius:8px; font-weight:700; }
+.hero .btn--accent:hover{ background:#8f3dff;
+  box-shadow:0 14px 28px -14px rgba(127,34,254,.7); }
+
+/* Trusted-by strip */
+.hero__logos{ border-top-color:var(--b-line); }
+.hero__logos-label{ color:var(--b-muted); }
+
+.hero :focus-visible{ outline-color:var(--b-purple); }
