@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="portal.css?v=31" />
+<link rel="stylesheet" href="portal.css?v=32" />
 </head>
 <body>
 
@@ -432,9 +432,9 @@
     var io = new IntersectionObserver(function (ents) {
       ents.forEach(function (en) {
         if (!en.isIntersecting) return; io.unobserve(en.target);
-        var d = parseInt(en.target.getAttribute('data-d') || '0', 10) * 80;
-        en.target.animate([{ opacity: 0, transform: 'translateY(20px)' }, { opacity: 1, transform: 'none' }],
-          { duration: 620, delay: d, easing: 'cubic-bezier(.16,1,.3,1)', fill: 'backwards' });
+        var d = parseInt(en.target.getAttribute('data-d') || '0', 10) * 90;
+        en.target.animate([{ opacity: 0, transform: 'translateY(36px) scale(.975)' }, { opacity: 1, transform: 'none' }],
+          { duration: 740, delay: d, easing: 'cubic-bezier(.16,1,.3,1)', fill: 'backwards' });
       });
     }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
     reveals.forEach(function (el) { io.observe(el); });
