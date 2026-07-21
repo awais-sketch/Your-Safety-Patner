@@ -117,8 +117,8 @@ h1,h2,h3,h4{ margin:0; color:var(--ink); font-weight:800; letter-spacing:-.03em;
 .trust__item{ display:inline-flex; align-items:center; gap:7px; font-weight:500; }
 .trust__sep{ width:4px; height:4px; border-radius:50%; background:var(--line); }
 .logos{ display:flex; align-items:center; justify-content:center; gap:44px; flex-wrap:wrap; margin-top:54px; padding-top:40px; border-top:1px solid var(--line); }
-.logos img{ height:30px; width:auto; object-fit:contain; opacity:.55; filter:grayscale(1); mix-blend-mode:multiply; transition:opacity .3s; }
-.logos img:hover{ opacity:.9; }
+.logos img{ height:34px; width:auto; object-fit:contain; opacity:.92; mix-blend-mode:multiply; transition:opacity .3s, transform .3s var(--ease); }
+.logos img:hover{ opacity:1; transform:translateY(-2px); }
 @media(max-width:640px){ .logos{ gap:28px; } .logos img{ height:24px; } }
 
 /* ============================================================
