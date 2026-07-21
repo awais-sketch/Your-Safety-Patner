@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="portal.css?v=17" />
+<link rel="stylesheet" href="portal.css?v=18" />
 </head>
 <body>
 
@@ -43,6 +43,7 @@
 <!-- ===== Hero ===== -->
 <section class="hero">
   <div class="hero__bgfx" aria-hidden="true">
+    <span class="hero__aurora"></span>
     <span class="hero__grid"></span>
   </div>
   <div class="wrap hero__inner">
@@ -381,53 +382,14 @@
    cursor across the hero, plus a slowly flowing gradient on the headline.
    Both are JS-driven so they run regardless of the OS reduce-motion setting. */
 (function () {
-  /* Hero animation: a soft violet particle network — dots drift slowly and
-     link up when they pass near each other. Canvas + requestAnimationFrame,
-     so it runs regardless of the OS reduce-motion setting. */
-  var canvas = document.querySelector('.hero__canvas');
-  if (canvas && canvas.getContext && window.requestAnimationFrame) {
-    var ctx = canvas.getContext('2d'), host = canvas.parentElement, W = 0, H = 0, dpr = 1, ps = [];
-    function resize() {
-      var r = host.getBoundingClientRect();
-      dpr = Math.min(window.devicePixelRatio || 1, 2);
-      W = canvas.width = Math.max(1, Math.round(r.width * dpr));
-      H = canvas.height = Math.max(1, Math.round(r.height * dpr));
-      canvas.style.width = r.width + 'px'; canvas.style.height = r.height + 'px';
-      var n = Math.max(24, Math.min(70, Math.round(r.width * r.height / 22000)));
-      ps = [];
-      for (var i = 0; i < n; i++) ps.push({
-        x: Math.random() * W, y: Math.random() * H,
-        vx: (Math.random() - 0.5) * 0.16 * dpr, vy: (Math.random() - 0.5) * 0.16 * dpr,
-        r: (Math.random() * 1.4 + 0.9) * dpr
-      });
-    }
-    var link = 130;
-    function draw() {
-      ctx.clearRect(0, 0, W, H);
-      var maxd = link * dpr;
-      for (var i = 0; i < ps.length; i++) {
-        var p = ps[i];
-        p.x += p.vx; p.y += p.vy;
-        if (p.x < 0) p.x += W; else if (p.x > W) p.x -= W;
-        if (p.y < 0) p.y += H; else if (p.y > H) p.y -= H;
-        for (var j = i + 1; j < ps.length; j++) {
-          var q = ps[j], dx = p.x - q.x, dy = p.y - q.y, d = Math.sqrt(dx * dx + dy * dy);
-          if (d < maxd) {
-            ctx.strokeStyle = 'rgba(109,40,217,' + (0.14 * (1 - d / maxd)).toFixed(3) + ')';
-            ctx.lineWidth = dpr;
-            ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(q.x, q.y); ctx.stroke();
-          }
-        }
-      }
-      ctx.fillStyle = 'rgba(124,58,237,.55)';
-      for (var k = 0; k < ps.length; k++) {
-        var a = ps[k]; ctx.beginPath(); ctx.arc(a.x, a.y, a.r, 0, 6.2832); ctx.fill();
-      }
-      requestAnimationFrame(draw);
-    }
-    resize();
-    var rt; window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(resize, 200); });
-    requestAnimationFrame(draw);
+  /* Aceternity-style aurora: flowing gradient ribbons that travel across the hero.
+     WAAPI drives the background-position so it runs even with OS reduce-motion on. */
+  var aurora = document.querySelector('.hero__aurora');
+  if (aurora && aurora.animate) {
+    aurora.animate(
+      [{ backgroundPosition: '0% 50%, 0% 50%' }, { backgroundPosition: '280% 50%, 200% 50%' }],
+      { duration: 22000, iterations: Infinity, easing: 'linear' }
+    );
   }
   /* Flowing headline gradient — WAAPI bypasses OS reduce-motion gating. */
   var grad = document.querySelector('.hero__title .grad');
