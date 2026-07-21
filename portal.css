@@ -599,24 +599,10 @@ h1,h2,h3,h4{ margin:0; color:var(--ink); font-weight:700; letter-spacing:-.02em;
 .hero{ background:linear-gradient(180deg,#fbfaff 0%,#fdfdff 48%,#fff 100%); overflow:hidden; }
 .hero__grid{ opacity:.35; }
 .hero__bgfx::after{ display:none; }              /* drop the sheen band */
-/* Soft violet blob behind the card — the reference's signature glow */
-.hero__blob{ position:absolute; top:-14%; right:-8%; width:780px; height:780px; border-radius:50%;
-  background:radial-gradient(circle at 50% 50%, rgba(127,34,254,.16), rgba(237,233,254,.5) 42%, transparent 68%);
-  filter:blur(18px); animation:ysp-drift 18s ease-in-out infinite alternate; }
-@keyframes ysp-drift{ from{ transform:translate3d(0,0,0) scale(1); }
-  to{ transform:translate3d(-34px,26px,0) scale(1.06); } }
 
 .hero__inner{ grid-template-columns:minmax(0,1fr) 400px; gap:80px;
   align-items:center; padding:96px 28px 64px; }
 
-/* Badge pill (replaces the dash eyebrow) */
-.hero__badge{ display:inline-block; margin:0 0 26px; padding:9px 16px; border-radius:8px;
-  background:var(--b-violet); color:var(--b-purple);
-  font-size:12.5px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; }
-
-/* Headline — clean navy, no marker */
-.hero__title{ font-size:clamp(2.2rem,3.7vw,3.3rem); line-height:1.08; letter-spacing:-.025em;
-  color:var(--b-ink); margin:0 0 22px; max-width:none; text-wrap:balance; }
 .hero__lede{ font-size:18px; line-height:1.65; color:var(--b-muted); max-width:52ch; margin:0 0 34px; }
 
 /* CTAs — purple solid + purple outline, like the reference pair */
@@ -651,40 +637,27 @@ h1,h2,h3,h4{ margin:0; color:var(--ink); font-weight:700; letter-spacing:-.02em;
 .hero .btn--accent{ background:var(--b-purple); color:#fff; }
 .hero .btn--accent:hover{ background:var(--b-purple-2); }
 
-/* Floating review chip — echoes the reference's floating cards */
-.offer-card__float{ position:absolute; left:-26px; bottom:34px; z-index:2;
-  display:inline-flex; align-items:center; gap:8px; background:#fff; border:1px solid #eef0f4;
-  border-radius:12px; padding:10px 14px; font-size:12.5px; font-weight:600; color:var(--b-ink);
-  box-shadow:0 14px 30px -14px rgba(16,24,40,.28); white-space:nowrap;
-  animation:ysp-float 5.5s ease-in-out infinite alternate; }
-.offer-card__float .stars{ color:var(--b-gold); font-size:12px; letter-spacing:1px; }
-@keyframes ysp-float{ from{ transform:translateY(0); } to{ transform:translateY(-9px); } }
-
 /* Entrance — rewire to the new elements */
-.hero__badge,.hero__stats li,.offer-card__float{
-  animation:ysp-rise var(--dur-enter) var(--e-out) both; }
-.hero__badge{ animation-delay:60ms; }
-.hero__stats li{ animation-delay:calc(470ms + var(--n,0) * 80ms); }
+.hero__stats li{ animation:ysp-rise var(--dur-enter) var(--e-out) both;
+  animation-delay:calc(470ms + var(--n,0) * 80ms); }
 .hero__stats li:nth-child(1){ --n:0; } .hero__stats li:nth-child(2){ --n:1; }
 .hero__stats li:nth-child(3){ --n:2; }
-.offer-card__float{ animation:ysp-rise var(--dur-enter) var(--e-out) 700ms both,
-  ysp-float 5.5s ease-in-out 1300ms infinite alternate; }
 
 @media(max-width:1080px){ .hero__inner{ grid-template-columns:minmax(0,1fr) 360px; gap:48px; } }
 @media(max-width:960px){
   .hero__inner{ grid-template-columns:1fr; gap:44px; padding-top:72px; }
   .hero__title{ max-width:none; }
-  .offer-card__float{ left:auto; right:16px; bottom:-18px; }
-  .hero__blob{ width:520px; height:520px; right:-24%; }
 }
 @media(max-width:560px){
-  .hero__stats{ gap:18px 32px; }
-  .hero__stats strong{ font-size:28px; }
-  .offer-card__float{ display:none; }
+  /* stacked — vertical dividers only make sense in a row */
+  .hero__stats{ flex-direction:column; gap:16px; padding-top:18px; }
+  .hero__stats li{ padding:0; }
+  .hero__stats li:not(:last-child)::after{ display:none; }
+  .hero__stats strong{ font-size:26px; }
 }
 
 @media(prefers-reduced-motion:reduce){
-  .hero__badge,.hero__stats li,.offer-card__float,.hero__blob{
+  .hero__eyebrow,.hero__stats li{
     animation:none !important; opacity:1 !important; transform:none !important; }
 }
 
@@ -704,6 +677,71 @@ h1,h2,h3,h4{ margin:0; color:var(--ink); font-weight:700; letter-spacing:-.02em;
   .hero__logos-row img[alt="Coles"]{ max-height:31px !important; }
   .hero__logos-row img[alt="Kookaburra"]{ max-height:28px !important; }
 }
+
+/* ========================================================================
+   HERO v5 — de-genericised. Brand colours stay; the AI-SaaS signals go:
+   no drifting violet blob, no floating star-rating chip, no soft-rounded
+   white pricing card with a purple glow, no violet pill badge.
+   Back to editorial: heavy grotesque headline on a flat canvas, mono
+   eyebrow, gold marker on one word, flat buttons, solid dark offer card.
+   ======================================================================== */
+.hero{ background:#fcfcfb; }                      /* flat canvas, no wash */
+.hero__grid{ opacity:.45;
+  background-image:repeating-linear-gradient(115deg, rgba(21,24,29,.03) 0 1px, transparent 1px 84px); }
+.hero__inner{ align-items:start; padding:86px 28px 58px; gap:72px;
+  grid-template-columns:minmax(0,1fr) 380px; }
+/* Must sit after the rule above, or the 380px track squeezes the text to 0 */
+@media(max-width:1080px){ .hero__inner{ grid-template-columns:minmax(0,1fr) 344px; gap:48px; } }
+@media(max-width:960px){ .hero__inner{ grid-template-columns:minmax(0,1fr);
+  gap:44px; padding:72px 28px 52px; } }
+
+/* Eyebrow — mono-tracked, sharp purple dash (pill badge removed) */
+.hero__eyebrow{ font-size:11.5px; letter-spacing:.18em; }
+
+/* Headline — heavy, three deliberate lines, hard breaks */
+.hero__title{ font-family:'Hanken Grotesk',Inter,sans-serif; font-weight:800;
+  font-size:clamp(2.3rem,4.1vw,3.5rem); line-height:1.02; letter-spacing:-.035em;
+  color:var(--b-ink); text-wrap:wrap; max-width:none; margin:0 0 24px; }
+.hero__title .hl::before{ background:var(--b-gold); }
+@media(max-width:960px){ .hero__title .lb{ display:none; } }
+
+.hero__lede{ font-size:17px; line-height:1.6; color:var(--b-muted);
+  max-width:48ch; margin:0 0 32px; }
+
+/* Buttons — flat, sharp. Purple solid + neutral outline (no soft violet tint) */
+.hero .btn--lg{ padding:15px 26px; font-size:15px; border-radius:8px; }
+.hero .btn--primary{ background:var(--b-purple); box-shadow:none; }
+.hero .btn--primary:hover{ background:var(--b-purple-2); box-shadow:none; }
+.hero .btn--outline{ background:transparent; border:1px solid #d3d6dc; color:var(--b-ink); }
+.hero .btn--outline:hover{ background:transparent; border-color:var(--b-ink); color:var(--b-ink); }
+.hero__cta{ margin:0 0 34px; }
+
+/* Stats — editorial: heavy figures, thin rules between */
+.hero__stats{ gap:0; border-top:1px solid #e6e8ec; padding-top:22px; }
+.hero__stats li{ padding:0 26px; position:relative; }
+.hero__stats li:first-child{ padding-left:0; }
+.hero__stats li:not(:last-child)::after{ content:""; position:absolute; right:0; top:4px;
+  bottom:4px; width:1px; background:#e6e8ec; }
+.hero__stats strong{ font-size:30px; }
+.hero__stats span{ font-size:12.5px; }
+
+/* ---------- Offer card — solid, flat, dark. No glow, no soft radius ---------- */
+.offer-card{ background:var(--b-dark); color:rgba(255,255,255,.86);
+  border:none; border-radius:10px; padding:28px 26px 24px; margin-top:4px;
+  box-shadow:0 24px 50px -32px rgba(16,24,40,.6); }
+.offer-card:hover{ transform:none; box-shadow:0 24px 50px -32px rgba(16,24,40,.6); }
+.offer-card__tag{ background:transparent; padding:0; color:var(--b-gold);
+  font-size:11px; letter-spacing:.12em; margin:0 0 18px; }
+.offer-card__price .now{ color:#fff; font-size:54px; }
+.offer-card__price .was{ color:rgba(255,255,255,.4); }
+.offer-card__off{ color:var(--b-gold); }
+.offer-card__label{ color:rgba(255,255,255,.55); }
+.offer-card__list{ border-top:1px solid rgba(255,255,255,.12); }
+.offer-card__list li{ color:rgba(255,255,255,.82); }
+.offer-card__list .check{ background:rgba(250,183,2,.16); color:var(--b-gold); }
+.offer-card__note{ color:rgba(255,255,255,.42); }
+.hero .btn--accent{ background:var(--b-purple-2); color:#fff; border-radius:8px; }
+.hero .btn--accent:hover{ background:#8f3dff; box-shadow:none; }
 
 /* Nav CTA sits directly above the hero — brand purple like the portal header.
    Revert = delete these three lines (the rest of the page is untouched). */
