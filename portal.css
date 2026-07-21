@@ -96,14 +96,14 @@ h1,h2,h3,h4{ margin:0; color:var(--ink); font-weight:800; letter-spacing:-.03em;
   linear-gradient(180deg, var(--tint-warm) 0%, #fff 62%); }
 .hero__bgfx{ position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:0; }
 /* Aceternity-style aurora: flowing gradient ribbons that travel across the hero */
-.hero__aurora{ position:absolute; inset:-45%; pointer-events:none; opacity:.5; filter:blur(18px); will-change:background-position;
+.hero__aurora{ position:absolute; inset:-12%; pointer-events:none; opacity:.6; filter:blur(22px); will-change:transform,background-position;
   background-image:
-    repeating-linear-gradient(102deg, transparent 0%, transparent 7%, rgba(255,255,255,.55) 9%, transparent 11%, transparent 16%),
-    repeating-linear-gradient(102deg, #7c3aed 8%, #4f46e5 15%, #a78bfa 22%, #6d28d9 29%, #4f46e5 36%, #7c3aed 44%);
-  background-size:280% 100%, 200% 100%;
+    repeating-linear-gradient(102deg, transparent 0 6%, rgba(255,255,255,.55) 8%, transparent 10% 16%),
+    repeating-linear-gradient(102deg, #7c3aed 0 8%, #4f46e5 16%, #a78bfa 24%, #6d28d9 32%, #4f46e5 40%, #7c3aed 48%);
+  background-size:300% 100%, 200% 100%;
   background-position:0% 50%, 0% 50%;
-  -webkit-mask-image:radial-gradient(115% 78% at 62% -6%, #000 16%, transparent 70%);
-  mask-image:radial-gradient(115% 78% at 62% -6%, #000 16%, transparent 70%); }
+  -webkit-mask-image:linear-gradient(180deg, #000 0%, #000 42%, transparent 84%);
+  mask-image:linear-gradient(180deg, #000 0%, #000 42%, transparent 84%); }
 .hero__grid{ position:absolute; inset:0; opacity:.6;
   background-image:linear-gradient(rgba(15,23,42,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(15,23,42,.04) 1px,transparent 1px);
   background-size:58px 58px; -webkit-mask-image:radial-gradient(120% 80% at 50% 0%,#000 26%,transparent 72%); mask-image:radial-gradient(120% 80% at 50% 0%,#000 26%,transparent 72%); }
