@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="portal.css?v=24" />
+<link rel="stylesheet" href="portal.css?v=25" />
 </head>
 <body>
 
@@ -43,8 +43,11 @@
 <!-- ===== Hero ===== -->
 <section class="hero">
   <div class="hero__bgfx" aria-hidden="true">
-    <span class="hero__aurora"></span>
-    <span class="hero__grid"></span>
+    <span class="mesh mesh--1"></span>
+    <span class="mesh mesh--2"></span>
+    <span class="mesh mesh--3"></span>
+    <span class="mesh mesh--4"></span>
+    <span class="hero__veil"></span>
   </div>
   <div class="wrap hero__inner">
     <p class="slabel reveal">Your Safety Partners <span class="slabel__dot">·</span> WHS documentation review</p>
@@ -382,13 +385,19 @@
    cursor across the hero, plus a slowly flowing gradient on the headline.
    Both are JS-driven so they run regardless of the OS reduce-motion setting. */
 (function () {
-  /* Aceternity-style aurora: flowing gradient ribbons that travel across the hero.
-     Driven per-frame by requestAnimationFrame so it always runs (reduce-motion safe)
-     and never depends on WAAPI interpolating a comma-separated background-position. */
-  var aurora = document.querySelector('.hero__aurora');
+  /* Flowing mesh-gradient blobs (Dribbble "Background animation" style). Each blob
+     drifts, scales and rotates on its own slow path so they blend into smooth,
+     morphing colour. rAF-driven so it runs even with OS reduce-motion on. */
+  var blobs = Array.prototype.slice.call(document.querySelectorAll('.hero .mesh'));
   var heroEl = document.querySelector('.hero');
-  if (aurora && heroEl && window.requestAnimationFrame) {
-    var mtx = 0, mty = 0, mcx = 0, mcy = 0, AMP = 46; /* mouse parallax amplitude (px) */
+  if (blobs.length && heroEl && window.requestAnimationFrame) {
+    var conf = [
+      { ax: 82, ay: 60, sx: 0.000110, sy: 0.000082, ph: 0.0, ps: 0.16, rot: 7 },
+      { ax: 70, ay: 84, sx: 0.000090, sy: 0.000130, ph: 2.1, ps: 0.18, rot: -6 },
+      { ax: 92, ay: 66, sx: 0.000132, sy: 0.000100, ph: 4.0, ps: 0.14, rot: 8 },
+      { ax: 66, ay: 90, sx: 0.000078, sy: 0.000150, ph: 1.3, ps: 0.20, rot: -7 }
+    ];
+    var mtx = 0, mty = 0, mcx = 0, mcy = 0, AMP = 38;
     heroEl.addEventListener('pointermove', function (e) {
       var r = heroEl.getBoundingClientRect();
       mtx = (((e.clientX - r.left) / r.width) - 0.5) * 2 * AMP;
@@ -396,11 +405,16 @@
     });
     heroEl.addEventListener('pointerleave', function () { mtx = 0; mty = 0; });
     (function flow(t) {
-      var s = (t || 0) / 1000;
-      var a = (s * 4) % 200;   /* slow, smooth flow */
-      aurora.style.backgroundPosition = a.toFixed(2) + '% 50%';
-      mcx += (mtx - mcx) * 0.05; mcy += (mty - mcy) * 0.05; /* ease toward cursor */
-      aurora.style.transform = 'translate3d(' + mcx.toFixed(1) + 'px,' + mcy.toFixed(1) + 'px,0)';
+      var e = t || 0;
+      mcx += (mtx - mcx) * 0.05; mcy += (mty - mcy) * 0.05;
+      for (var i = 0; i < blobs.length; i++) {
+        var c = conf[i % conf.length], depth = 0.4 + i * 0.22;
+        var x = Math.sin(e * c.sx + c.ph) * c.ax + mcx * depth;
+        var y = Math.cos(e * c.sy + c.ph) * c.ay + mcy * depth;
+        var s = 1 + Math.sin(e * c.sx * 1.25 + c.ph) * c.ps;
+        var r = Math.sin(e * c.sx * 0.8 + c.ph) * c.rot;
+        blobs[i].style.transform = 'translate3d(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px,0) scale(' + s.toFixed(3) + ') rotate(' + r.toFixed(2) + 'deg)';
+      }
       requestAnimationFrame(flow);
     })(0);
   }

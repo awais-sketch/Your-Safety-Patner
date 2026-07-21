@@ -92,14 +92,19 @@ h1,h2,h3,h4{ margin:0; color:var(--ink); font-weight:800; letter-spacing:-.03em;
    ============================================================ */
 .hero{ position:relative; overflow:hidden; background:#ffffff; }
 .hero__bgfx{ position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:0; }
-/* Aurora: a clearly-visible, slow-flowing blue band at the top that fades out
-   before the content — hero stays white below */
-.hero__aurora{ position:absolute; inset:-12%; pointer-events:none; opacity:.42; filter:blur(32px); will-change:transform,background-position;
-  background-image:repeating-linear-gradient(102deg, #60a5fa 0 12%, #3b82f6 20%, #93c5fd 28%, #2563eb 36%, #38bdf8 44%, #60a5fa 52%);
-  background-size:200% 100%;
-  background-position:0% 50%;
-  -webkit-mask-image:linear-gradient(180deg, #000 0%, #000 26%, transparent 66%);
-  mask-image:linear-gradient(180deg, #000 0%, #000 26%, transparent 66%); }
+/* Flowing mesh-gradient blobs (Dribbble "Background animation" style) on white */
+.mesh{ position:absolute; border-radius:50%; filter:blur(90px); will-change:transform; }
+.mesh--1{ width:60vw; height:60vw; max-width:820px; max-height:820px; top:-24%; right:-6%;
+  background:radial-gradient(circle, rgba(124,58,237,.55), transparent 66%); }
+.mesh--2{ width:52vw; height:52vw; max-width:720px; max-height:720px; top:-16%; right:16%;
+  background:radial-gradient(circle, rgba(59,130,246,.5), transparent 66%); }
+.mesh--3{ width:48vw; height:48vw; max-width:680px; max-height:680px; top:2%; left:-10%;
+  background:radial-gradient(circle, rgba(79,70,229,.42), transparent 66%); }
+.mesh--4{ width:40vw; height:40vw; max-width:560px; max-height:560px; bottom:-24%; left:24%;
+  background:radial-gradient(circle, rgba(236,72,153,.22), transparent 66%); }
+/* white veil so the centred text stays readable over the colour */
+.hero__veil{ position:absolute; inset:0;
+  background:radial-gradient(60% 55% at 50% 52%, rgba(255,255,255,.72), rgba(255,255,255,.15) 60%, transparent 78%); }
 .hero__grid{ position:absolute; inset:0; opacity:.6;
   background-image:linear-gradient(rgba(15,23,42,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(15,23,42,.04) 1px,transparent 1px);
   background-size:58px 58px; -webkit-mask-image:radial-gradient(120% 80% at 50% 0%,#000 26%,transparent 72%); mask-image:radial-gradient(120% 80% at 50% 0%,#000 26%,transparent 72%); }
