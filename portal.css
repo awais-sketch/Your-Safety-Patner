@@ -349,63 +349,101 @@ h1,h2,h3,h4{ margin:0; color:var(--ink); font-weight:700; letter-spacing:-.02em;
    HERO — frontend-design polish (premium refinement, no new elements)
    ======================================================================== */
 
-/* Warmer, layered atmosphere anchored behind the offer card */
-.hero{ background:
-  radial-gradient(120% 85% at 84% 4%, rgba(124,58,237,.11), transparent 52%),
-  radial-gradient(90% 80% at -5% 105%, rgba(99,102,241,.08), transparent 58%),
-  linear-gradient(180deg,#fbfaff 0%,#ffffff 66%); }
+/* ========================================================================
+   HERO — editorial (charcoal + white, safety-yellow accent). Reference:
+   automate-accelerator: heavy grotesque type, high contrast, flat, restrained.
+   No purple gradient / glow / orb blobs — those read "generic SaaS".
+   ======================================================================== */
+:root{ --char:#15181d; --char-2:#1d2127; --yellow:#fab702; --yellow-ink:#1a1400; }
 
-/* Slightly brighter drifting orbs so the ambient motion reads clearly */
-.orb--1{ opacity:.62; }
-.orb--2{ opacity:.58; }
-.orb--3{ opacity:.5; }
+/* Clean near-white canvas with a faint diagonal paper texture (static, subtle) */
+.hero{ background:#fbfbfa; }
+.hero__bgfx{ z-index:0; }
+.hero .orb{ display:none; }                       /* kill the purple blobs */
+.hero__grid{ opacity:.5;
+  background-image:repeating-linear-gradient(115deg, rgba(21,24,29,.028) 0 1px, transparent 1px 84px);
+  -webkit-mask-image:linear-gradient(180deg,#000 0%,transparent 78%);
+  mask-image:linear-gradient(180deg,#000 0%,transparent 78%); }
+/* One very slow, neutral light band drifting across — ambient, not decorative */
+.hero__bgfx::after{ content:""; position:absolute; top:-20%; left:-30%; width:60%; height:140%;
+  background:linear-gradient(115deg, transparent, rgba(255,255,255,.55) 45%, transparent);
+  filter:blur(30px); animation:heroSheen 14s linear infinite; }
+@keyframes heroSheen{ from{ transform:translateX(-30%); } to{ transform:translateX(230%); } }
+@media(prefers-reduced-motion:reduce){ .hero__bgfx::after{ animation:none; opacity:0; } }
 
-/* Trust chip — glassy, cleaner */
-.hero__pill{ background:rgba(255,255,255,.86); backdrop-filter:blur(8px);
-  -webkit-backdrop-filter:blur(8px); border-color:#ece9fb; }
-.hero__pill .stars{ letter-spacing:2px; }
+.hero__inner{ grid-template-columns:minmax(0,1fr) 372px; gap:64px; align-items:center;
+  padding:78px 28px 60px; }
+.hero__content{ padding-top:0; }
 
-/* Title — sharper cut, richer gradient, 3-line rhythm */
-.hero__title{ letter-spacing:-.035em; line-height:1.16; margin:0 0 22px; }
-.hbr{ display:inline; }
-@media(max-width:620px){ .hbr{ display:none; } }
-.grad{ background:linear-gradient(115deg,#7c3aed 0%,#6366f1 52%,#4f46e5 100%);
-  -webkit-background-clip:text; background-clip:text; color:transparent; }
-.hero__lede{ font-size:17px; margin-bottom:30px; }
+/* Eyebrow — mono-tracked with a sharp yellow lead dash */
+.hero__eyebrow{ display:flex; align-items:center; gap:12px; margin:0 0 24px;
+  font-size:12px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:#6b7280; }
+.hero__dash{ width:26px; height:2px; background:var(--yellow); flex-shrink:0; }
 
-/* Points — softer tick chips */
-.hero__points .tick{ display:inline-grid; place-items:center; width:18px; height:18px;
-  border-radius:50%; background:var(--violet-soft); color:var(--violet-2); }
+/* Headline — heavy editorial grotesque, near-black, tight */
+.hero__title{ font-family:'Hanken Grotesk',Inter,sans-serif; font-weight:800;
+  font-size:clamp(2.4rem,4.6vw,3.6rem); line-height:1.03; letter-spacing:-.035em;
+  color:var(--char); margin:0 0 22px; text-wrap:balance; }
+.hero__title .hl{ background:transparent; color:var(--char); position:relative;
+  white-space:nowrap; padding:0 .06em; }
+.hero__title .hl::before{ content:""; position:absolute; left:-.04em; right:-.04em; bottom:.06em;
+  height:.42em; background:var(--yellow); z-index:-1; transform:skew(-3deg); }
 
-/* Primary CTA — dimensional gradient + arrow slide */
-.btn--primary{ background:linear-gradient(180deg,#334155 0%,#1e293b 100%);
-  box-shadow:0 10px 24px -12px rgba(15,23,42,.5); }
-.btn--primary:hover{ background:linear-gradient(180deg,#1e293b 0%,#0f172a 100%);
-  box-shadow:0 18px 32px -14px rgba(15,23,42,.55); }
+/* Subline — strong, one line */
+.hero__sub{ font-family:'Hanken Grotesk',Inter,sans-serif; font-size:19px; font-weight:600;
+  color:var(--char); margin:0 0 14px; max-width:32ch; line-height:1.35; }
+.hero__lede{ font-size:16px; color:var(--muted); max-width:46ch; margin:0 0 30px; line-height:1.6; }
+
+/* CTA — flat, solid, sharp */
+.hero__cta{ display:flex; gap:12px; flex-wrap:wrap; margin:0 0 26px; }
 .btn .arr{ transition:transform .25s var(--ease); }
+.btn--primary{ background:var(--char); color:#fff; border-radius:10px; box-shadow:none; }
+.btn--primary:hover{ background:#000; transform:translateY(-2px); box-shadow:0 12px 24px -14px rgba(0,0,0,.5); }
 .btn--primary:hover .arr{ transform:translateX(4px); }
+.btn--outline{ background:transparent; color:var(--char); border-color:#d5d7da; }
+.btn--outline:hover{ border-color:var(--char); background:transparent; color:var(--char); }
+.btn--accent{ background:var(--yellow); color:var(--yellow-ink); border-radius:10px; font-weight:800; }
+.btn--accent:hover{ background:#ffc824; transform:translateY(-2px); box-shadow:0 12px 26px -12px rgba(250,183,2,.6); }
+.btn--accent:hover .arr{ transform:translateX(4px); }
 
-/* ---------- Offer card — premium ---------- */
-.offer-card{ border-radius:22px; border-color:#ece9fb;
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.7),
-    0 34px 64px -34px rgba(30,41,59,.38),
-    0 14px 30px -22px rgba(124,58,237,.30); }
-/* Gradient hairline that ties the orange badge into the violet theme */
-.offer-card::before{ content:""; position:absolute; top:0; left:0; right:0; height:3px;
-  background:linear-gradient(90deg,#f97316 0%,#7c3aed 55%,#6366f1 100%); z-index:2; }
+/* Points — plain, tracked, divided row */
+.hero__points{ list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:10px 0; }
+.hero__points li{ display:inline-flex; align-items:center; font-size:13px; font-weight:600;
+  color:#374151; padding:0 16px; position:relative; }
+.hero__points li:first-child{ padding-left:0; }
+.hero__points li::after{ content:""; position:absolute; right:0; top:50%; width:1px; height:12px;
+  background:#d5d7da; transform:translateY(-50%); }
+.hero__points li:last-child::after{ display:none; }
 
-.offer-card__ribbon{ box-shadow:0 8px 18px -10px rgba(109,40,217,.7); }
-.offer-card__badge{ box-shadow:0 8px 18px -8px rgba(249,115,22,.55); }
-.offer-card__price .now{ font-size:52px; }
+/* ---------- Offer card — solid charcoal, high-contrast, flat ---------- */
+.offer-card{ background:var(--char); color:rgba(255,255,255,.86); border:none; border-radius:16px;
+  padding:28px 26px 24px; box-shadow:0 30px 60px -32px rgba(21,24,29,.5); overflow:visible; }
+.offer-card::before{ display:none; }
+.offer-card__tag{ display:inline-block; font-size:11px; font-weight:700; letter-spacing:.12em;
+  text-transform:uppercase; color:var(--yellow); margin:0 0 18px; }
+.offer-card__price{ display:flex; align-items:flex-end; gap:14px; margin:0 0 6px; }
+.offer-card__price .now{ font-family:'Hanken Grotesk',sans-serif; font-size:56px; font-weight:800;
+  color:#fff; letter-spacing:-.03em; line-height:.9; }
+.offer-card__meta{ display:flex; flex-direction:column; gap:3px; padding-bottom:4px; }
+.offer-card__price .was{ font-size:16px; color:rgba(255,255,255,.4); text-decoration:line-through; }
+.offer-card__off{ font-size:11px; font-weight:800; letter-spacing:.06em; text-transform:uppercase;
+  color:var(--yellow); }
+.offer-card__label{ font-size:12.5px; color:rgba(255,255,255,.55); margin:0 0 20px; }
+.offer-card__list{ list-style:none; margin:0 0 22px; padding:20px 0 0;
+  border-top:1px solid rgba(255,255,255,.12); display:grid; gap:12px; }
+.offer-card__list li{ display:flex; align-items:flex-start; gap:10px; font-size:13.5px;
+  color:rgba(255,255,255,.82); line-height:1.45; }
+.offer-card__list .check{ background:rgba(250,183,2,.16); color:var(--yellow); border-radius:5px;
+  flex-shrink:0; width:18px; height:18px; display:grid; place-items:center; }
+.offer-card__note{ text-align:center; font-size:11.5px; color:rgba(255,255,255,.42); margin:13px 0 0; }
 
-/* Portal peek — deeper, softly framed */
-.offer-card__peek{ background:linear-gradient(165deg,#1e293b 0%,#0f172a 100%);
-  border:1px solid rgba(148,163,184,.10);
-  box-shadow:0 14px 34px -20px rgba(15,23,42,.6); }
-.peek__bar i{ box-shadow:0 0 12px -2px rgba(124,58,237,.7); }
+@media(max-width:960px){ .hero__inner{ grid-template-columns:1fr; gap:40px; } }
+@media(max-width:820px){ .offer-card__price .now{ font-size:48px; } }
 
-@media(max-width:820px){ .offer-card__price .now{ font-size:46px; } }
+/* Logos — editorial: quiet, uniform, monochrome (colour on hover) */
+.hero__logos-label{ color:#9aa0a8; }
+.hero__logos-row img{ filter:grayscale(1); opacity:.55; }
+.hero__logos-row img:hover{ filter:grayscale(0); opacity:1; }
 
 /* ---------- scroll reveal (transform-only, content always visible) ---------- */
 .reveal{ opacity:1; }
