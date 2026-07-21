@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="portal.css?v=13" />
+<link rel="stylesheet" href="portal.css?v=14" />
 </head>
 <body>
 
@@ -43,9 +43,7 @@
 <!-- ===== Hero ===== -->
 <section class="hero">
   <div class="hero__bgfx" aria-hidden="true">
-    <span class="orb orb--1"></span>
-    <span class="orb orb--2"></span>
-    <span class="orb orb--3"></span>
+    <span class="hero__spot"></span>
     <span class="hero__grid"></span>
   </div>
   <div class="wrap hero__inner">
@@ -380,27 +378,34 @@
 </footer>
 
 <script>
-/* Hero ambient background: JS-driven so it runs regardless of OS reduce-motion. */
+/* Hero animation (matches the Vercel site): a violet spotlight that follows the
+   cursor across the hero, plus a slowly flowing gradient on the headline.
+   Both are JS-driven so they run regardless of the OS reduce-motion setting. */
 (function () {
-  var orbs = Array.prototype.slice.call(document.querySelectorAll('.hero .orb'));
-  if (orbs.length && window.requestAnimationFrame) {
-    var conf = [
-      { ax: 46, ay: 34, sx: 0.00022, sy: 0.00017, ph: 0.0, ps: 0.10 },
-      { ax: 54, ay: 40, sx: 0.00018, sy: 0.00025, ph: 2.1, ps: 0.12 },
-      { ax: 40, ay: 46, sx: 0.00026, sy: 0.00020, ph: 4.2, ps: 0.09 }
-    ];
-    var start = null;
-    (function tick(t) {
-      if (start === null) start = t;
-      var e = t - start;
-      for (var i = 0; i < orbs.length; i++) {
-        var c = conf[i % conf.length];
-        var x = Math.sin(e * c.sx + c.ph) * c.ax, y = Math.cos(e * c.sy + c.ph) * c.ay;
-        var s = 1 + Math.sin(e * c.sx * 1.4 + c.ph) * c.ps;
-        orbs[i].style.transform = 'translate3d(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px,0) scale(' + s.toFixed(3) + ')';
-      }
-      requestAnimationFrame(tick);
-    })(0);
+  var hero = document.querySelector('.hero');
+  var spot = document.querySelector('.hero__spot');
+  if (hero && spot) {
+    var raf = 0, tx = 50, ty = 28, cx = 50, cy = 28;
+    hero.addEventListener('pointermove', function (e) {
+      var r = hero.getBoundingClientRect();
+      tx = ((e.clientX - r.left) / r.width) * 100;
+      ty = ((e.clientY - r.top) / r.height) * 100;
+      hero.classList.add('is-spot');
+      if (!raf) raf = requestAnimationFrame(follow);
+    });
+    hero.addEventListener('pointerleave', function () { hero.classList.remove('is-spot'); });
+    function follow() {
+      cx += (tx - cx) * 0.12; cy += (ty - cy) * 0.12;
+      spot.style.setProperty('--sx', cx.toFixed(1) + '%');
+      spot.style.setProperty('--sy', cy.toFixed(1) + '%');
+      if (Math.abs(tx - cx) > 0.1 || Math.abs(ty - cy) > 0.1) raf = requestAnimationFrame(follow); else raf = 0;
+    }
+  }
+  /* Flowing headline gradient — WAAPI bypasses OS reduce-motion gating. */
+  var grad = document.querySelector('.hero__title .grad');
+  if (grad && grad.animate) {
+    grad.animate([{ backgroundPosition: '0% 50%' }, { backgroundPosition: '200% 50%' }],
+      { duration: 7000, iterations: Infinity, easing: 'ease-in-out' });
   }
 
   /* Scroll reveal (transform-only via Web Animations API — runs under reduce-motion,
