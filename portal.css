@@ -847,6 +847,55 @@ h1,h2,h3,h4{ margin:0; color:var(--ink); font-weight:700; letter-spacing:-.02em;
 }
 
 /* ========================================================================
+   PAGE ENTRANCE — one choreography that runs once on load.
+   Direction carries meaning: the nav drops in from the top edge, the
+   left column slides in from the left, the offer card from the right
+   (each from the side it lives on), and the figures and logo strip rise
+   last. Nothing overlaps its own trigger; the whole sequence lands by
+   about 1.5s. Longer than an interaction transition on purpose - this is
+   an arrival, not a response to a click.
+   ======================================================================== */
+@keyframes ysp-inD{ from{ opacity:0; transform:translate3d(0,-14px,0); } to{ opacity:1; transform:none; } }
+@keyframes ysp-inL{ from{ opacity:0; transform:translate3d(-28px,0,0); } to{ opacity:1; transform:none; } }
+@keyframes ysp-inR{ from{ opacity:0; transform:translate3d(32px,0,0);  } to{ opacity:1; transform:none; } }
+@keyframes ysp-inU{ from{ opacity:0; transform:translate3d(0,22px,0);  } to{ opacity:1; transform:none; } }
+
+/* Header drops from the edge it is attached to. Ends on transform:none so
+   nothing lingers to interfere with position:sticky. */
+.nav{ animation:ysp-inD 520ms var(--e-out) both; }
+
+/* Left column, in reading order */
+.hero__eyebrow,.hero__title,.hero__lede,.hero__cta{
+  animation-name:ysp-inL; animation-duration:640ms; }
+.hero__eyebrow{ animation-delay:150ms; }
+.hero__title  { animation-delay:240ms; }
+.hero__lede   { animation-delay:350ms; }
+.hero__cta    { animation-delay:450ms; }
+
+/* The marker waits until the headline has actually landed */
+.hero__title .hl::before{ animation:ysp-mark 620ms var(--e-out) 820ms both; }
+
+/* Figures rise after the copy is in place */
+.hero__stats li{ animation-name:ysp-inU; animation-duration:600ms;
+  animation-delay:calc(560ms + var(--n,0) * 90ms); }
+
+/* The card arrives from its own side, slightly slower so it feels heavier */
+.offer-card{ animation-name:ysp-inR; animation-duration:720ms; animation-delay:330ms; }
+
+/* Trust strip closes the sequence. 60ms between logos rather than 90ms,
+   so the last one lands at ~1.85s instead of dragging past 2s. */
+.hero__logos-label{ animation-name:ysp-inU; animation-duration:600ms; animation-delay:860ms; }
+.hero__logos-row li{ animation-name:ysp-inU; animation-duration:600ms;
+  animation-delay:calc(930ms + var(--i,0) * 60ms); }
+
+@media(prefers-reduced-motion:reduce){
+  .nav,.hero__eyebrow,.hero__title,.hero__lede,.hero__cta,.hero__stats li,
+  .offer-card,.hero__logos-label,.hero__logos-row li,.hero__title .hl::before{
+    animation:none !important; opacity:1 !important; transform:none !important; }
+  .hero__title .hl::before{ transform:skew(-3deg) !important; }
+}
+
+/* ========================================================================
    HERO BACKGROUND — ambient system, not decoration.
    Two hairline planes drift against each other at different angles and
    speeds, so the canvas reads as depth rather than a flat fill, plus one

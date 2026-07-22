@@ -377,7 +377,8 @@
       });
     })(els[i]);
   }
-  setTimeout(countUp, 620);   /* after the stats have risen into place */
+  setTimeout(countUp, 820);   /* the first figure lands at ~1.16s, so the
+                                 counting reads while they settle, not before */
 
   /* 2. The hero background drifts slower than the page as you scroll, so the
         canvas sits behind the content instead of travelling with it. rAF-
