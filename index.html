@@ -379,7 +379,27 @@
   }
   setTimeout(countUp, 620);   /* after the stats have risen into place */
 
-  /* 2. Sections below the hero rise in as they come into view. */
+  /* 2. The hero background drifts slower than the page as you scroll, so the
+        canvas sits behind the content instead of travelling with it. rAF-
+        throttled, passive, and it stops once the hero is off screen. */
+  var bg = document.querySelector('.hero__bgfx');
+  if (bg) {
+    var queued = false;
+    window.addEventListener('scroll', function () {
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(function () {
+        var y = window.pageYOffset || document.documentElement.scrollTop;
+        var hero = document.querySelector('.hero');
+        if (hero && y < hero.offsetHeight) {
+          bg.style.transform = 'translate3d(0,' + (y * 0.14).toFixed(1) + 'px,0)';
+        }
+        queued = false;
+      });
+    }, { passive: true });
+  }
+
+  /* 3. Sections below the hero rise in as they come into view. */
   if (!('IntersectionObserver' in window)) return;
   var targets = document.querySelectorAll(
     '.section .head, .section .card, .section .pcard, .section .numlist li, .section .review, .formcard'

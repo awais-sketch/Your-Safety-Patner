@@ -846,6 +846,61 @@ h1,h2,h3,h4{ margin:0; color:var(--ink); font-weight:700; letter-spacing:-.02em;
   .js-reveal{ opacity:1 !important; transform:none !important; }
 }
 
+/* ========================================================================
+   HERO BACKGROUND — ambient system, not decoration.
+   Two hairline planes drift against each other at different angles and
+   speeds, so the canvas reads as depth rather than a flat fill, plus one
+   very faint light sweep. Deliberately NOT drifting colour blobs.
+
+   Each plane translates by exactly one tile along its own gradient axis,
+   so the loop is seamless: for a gradient at angle A the axis is
+   (sin A, -cos A), so a 84px tile at 115deg moves (76.1, 35.5).
+   Transform and opacity only, both GPU-composited.
+   ======================================================================== */
+.hero__bgfx{ will-change:transform;
+  -webkit-mask-image:linear-gradient(180deg,#000 0%,#000 46%,transparent 92%);
+  mask-image:linear-gradient(180deg,#000 0%,#000 46%,transparent 92%); }
+
+/* Plane A — the primary hairlines, 115deg, 84px tile */
+.hero__grid{ inset:-35%; opacity:1; will-change:transform;
+  -webkit-mask-image:none; mask-image:none;
+  background-image:repeating-linear-gradient(115deg,
+    rgba(109,40,217,.055) 0 1px, transparent 1px 84px);
+  animation:ysp-planeA 34s linear infinite; }
+
+/* Plane B — a sparser counter-plane, 65deg, 132px tile, drifting the other way */
+.hero__bgfx::before{ content:""; position:absolute; inset:-35%; display:block;
+  will-change:transform;
+  background-image:repeating-linear-gradient(65deg,
+    rgba(15,23,42,.04) 0 1px, transparent 1px 132px);
+  animation:ysp-planeB 52s linear infinite; }
+
+/* A single wide, soft pass of light. Low alpha, long interval. */
+.hero__bgfx::after{ content:""; display:block; position:absolute;
+  top:-25%; left:-45%; width:48%; height:150%;
+  background:linear-gradient(100deg, transparent,
+    rgba(255,255,255,.62) 46%, rgba(237,233,254,.28) 62%, transparent);
+  filter:blur(44px); will-change:transform, opacity;
+  animation:ysp-sweep 21s cubic-bezier(.45,0,.55,1) infinite; }
+
+@keyframes ysp-planeA{
+  from{ transform:translate3d(0,0,0); }
+  to  { transform:translate3d(76.1px,35.5px,0); } }
+@keyframes ysp-planeB{
+  from{ transform:translate3d(0,0,0); }
+  to  { transform:translate3d(-119.6px,55.8px,0); } }
+@keyframes ysp-sweep{
+  0%  { transform:translate3d(0,0,0);    opacity:0; }
+  14% { opacity:1; }
+  86% { opacity:1; }
+  100%{ transform:translate3d(330%,0,0); opacity:0; } }
+
+@media(prefers-reduced-motion:reduce){
+  .hero__grid,.hero__bgfx::before{ animation:none !important; transform:none !important; }
+  .hero__bgfx::after{ animation:none !important; opacity:0 !important; }
+  .hero__bgfx{ transform:none !important; }
+}
+
 /* Card lift on hover, matching the reference's soft violet shadow */
 .card,.pcard{ transition:transform var(--dur-base) var(--e-out),
   box-shadow var(--dur-base) var(--e-out); }
