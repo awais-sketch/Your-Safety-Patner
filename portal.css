@@ -702,7 +702,10 @@ h1,h2,h3,h4{ margin:0; color:var(--ink); font-weight:700; letter-spacing:-.02em;
   font-size:clamp(1.95rem,3.35vw,2.85rem); line-height:1.06; letter-spacing:-.03em;
   color:var(--b-ink); text-wrap:wrap; max-width:none; margin:0 0 22px; }
 .hero__title .hl::before{ background:var(--b-gold); }
-@media(max-width:960px){ .hero__title .lb{ display:none; } }
+/* Three deliberate lines on desktop. Each line is a span rather than a <br>,
+   because a hidden <br> left "whether"+"your" with no space between them. */
+.hero__title .ln{ display:block; }
+@media(max-width:960px){ .hero__title .ln{ display:inline; } }
 
 .hero__lede{ font-size:17px; line-height:1.6; color:var(--b-muted);
   max-width:48ch; margin:0 0 32px; }
