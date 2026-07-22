@@ -786,8 +786,36 @@ h1,h2,h3,h4{ margin:0; color:var(--ink); font-weight:700; letter-spacing:-.02em;
 .offer-card__list li{ color:rgba(255,255,255,.85); }
 .offer-card__note{ color:rgba(255,255,255,.45); }
 
-/* Nav CTA sits directly above the hero — brand indigo like the wordmark.
-   Revert = delete these three lines (the rest of the page is untouched). */
+/* Nav CTA sits directly above the hero — brand indigo like the wordmark. */
 .nav .btn--primary{ background:var(--b-purple); color:#fff; border-radius:8px; }
 .nav .btn--primary:hover{ background:var(--b-purple-2);
   box-shadow:0 12px 24px -14px rgba(32,32,112,.55); }
+
+/* ========================================================================
+   BRAND ROLL-OUT — the rest of the page, not just the hero.
+   Headings were #0f172a near-black and the page CTAs #15181d charcoal,
+   while the logo is indigo. Retokenising the base palette carries the
+   brand through every section in one place.
+   ======================================================================== */
+:root{
+  --ink:#202070;            /* all headings, from near-black slate */
+  --char:#202070;           /* .btn--primary is defined off this */
+  --char-2:#2a2a8c;
+  --navy:#202070;
+  --navy-2:#171754;         /* dark surfaces: panel, CTA band, footer */
+  --violet:#202070;         /* was #6d28d9 electric purple, off-brand */
+  --violet-2:#2a2a8c;
+  --violet-soft:#efedfd;
+  --violet-ring:rgba(32,32,112,.16);
+  --yellow:#ffb818;         /* logo gold */
+  --yellow-ink:#1a1440;
+  --gold:#ffb818;           /* review stars */
+  --orange:#ffb818;
+}
+.btn--primary{ background:var(--b-purple); color:#fff; }
+.btn--primary:hover{ background:var(--b-purple-2); }
+.btn--outline{ color:var(--b-purple); border-color:#d5d3e8; }
+.btn--outline:hover{ border-color:var(--b-purple); color:var(--b-purple); }
+.btn--accent{ background:var(--b-gold); color:#1a1440; }
+::selection{ background:var(--b-purple); color:#fff; }
+:focus-visible{ outline-color:var(--b-purple); }
