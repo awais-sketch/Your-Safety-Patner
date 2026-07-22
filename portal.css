@@ -811,6 +811,17 @@ h1,h2,h3,h4{ margin:0; color:var(--ink); font-weight:700; letter-spacing:-.02em;
 
 .hero__logos-label{ color:#64748b; font-size:12px; letter-spacing:1.68px; }
 
+/* The logo strip was ending flush against the offer bar: hero padding-bottom
+   was 0 and the strip carried no bottom margin, so the two sections touched
+   at exactly the same y. Give the strip room to breathe and let the bar
+   below open up to match. */
+.hero__logos{ padding-bottom:64px; }
+.offerbar__inner{ padding:28px 28px; }
+@media(max-width:820px){
+  .hero__logos{ padding-bottom:44px; }
+  .offerbar__inner{ padding:22px 28px; }
+}
+
 /* ========================================================================
    Same palette across the rest of the page, in one place.
    ======================================================================== */
