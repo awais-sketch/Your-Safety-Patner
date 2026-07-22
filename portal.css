@@ -745,8 +745,49 @@ h1,h2,h3,h4{ margin:0; color:var(--ink); font-weight:700; letter-spacing:-.02em;
 .hero .btn--accent{ background:var(--b-purple-2); color:#fff; border-radius:8px; }
 .hero .btn--accent:hover{ background:#8f3dff; box-shadow:none; }
 
-/* Nav CTA sits directly above the hero — brand purple like the portal header.
+/* ========================================================================
+   BRAND PALETTE v6 — sampled from the logo itself (assets/portal-logo.png),
+   not from the website's buttons. Pixel counts over the mark:
+     #202070 deep indigo navy  170,447px  <- the wordmark, dominant
+     #ffb818 gold               15,980px  <- the "o" in "portal"
+     #3838c0 mid indigo                   <- gradient middle
+     #a070e8 / #b078f0 lavender           <- gradient tail
+   The earlier #7008e7 electric purple came from the site's buttons and is
+   NOT the logo colour. Redefining the tokens recolours the whole hero.
+   ======================================================================== */
+:root{
+  --b-purple:#202070;    /* primary: deep indigo from the wordmark */
+  --b-purple-2:#2a2a8c;  /* hover */
+  --b-lavender:#a070e8;  /* gradient tail, soft accent */
+  --b-violet:#efedfd;
+  --b-violet-2:#f6f4ff;
+  --b-ink:#202070;       /* headings in brand indigo, not slate */
+  --b-dark:#1c1c66;      /* offer card: deep indigo, not generic navy */
+  --b-gold:#ffb818;      /* logo gold */
+  --b-muted:#5c5c7a;     /* muted text, tinted toward indigo */
+  --b-line:#e4e3f0;
+}
+
+/* Canvas: faint lavender wash from the gradient tail */
+.hero{ background:linear-gradient(180deg,#f5f3ff 0%,#faf9ff 46%,#fff 100%); }
+.hero__grid{ background-image:repeating-linear-gradient(115deg,
+  rgba(32,32,112,.045) 0 1px, transparent 1px 84px); }
+
+/* Gold lead dash (the logo's own accent pairing with indigo) */
+.hero__dash{ background:var(--b-gold); }
+.hero__points li::before{ background:var(--b-gold); }
+
+/* Card CTA in gold on the indigo card — the logo's exact pairing.
+   (Indigo-on-indigo would disappear.) */
+.hero .btn--accent{ background:var(--b-gold); color:#1a1440; font-weight:800; }
+.hero .btn--accent:hover{ background:#ffc63f; box-shadow:none; }
+.offer-card__list .check{ background:rgba(255,184,24,.18); color:var(--b-gold); }
+.offer-card__label{ color:rgba(255,255,255,.6); }
+.offer-card__list li{ color:rgba(255,255,255,.85); }
+.offer-card__note{ color:rgba(255,255,255,.45); }
+
+/* Nav CTA sits directly above the hero — brand indigo like the wordmark.
    Revert = delete these three lines (the rest of the page is untouched). */
 .nav .btn--primary{ background:var(--b-purple); color:#fff; border-radius:8px; }
 .nav .btn--primary:hover{ background:var(--b-purple-2);
-  box-shadow:0 12px 24px -14px rgba(112,8,231,.6); }
+  box-shadow:0 12px 24px -14px rgba(32,32,112,.55); }
