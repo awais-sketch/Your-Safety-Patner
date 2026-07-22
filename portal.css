@@ -835,3 +835,23 @@ h1,h2,h3,h4{ margin:0; color:var(--ink); font-weight:700; letter-spacing:-.02em;
 .btn--accent{ background:var(--b-purple); color:#fff; }
 ::selection{ background:var(--b-purple); color:#fff; }
 :focus-visible{ outline-color:var(--b-purple); }
+
+/* ---------- Scroll reveal for the sections below the hero ----------
+   .js-reveal is only ever added by JS, so with scripting off nothing is
+   hidden. Transform + opacity only, and the whole thing is skipped under
+   reduce-motion (the script returns early before adding the class). */
+.js-reveal{ opacity:0; transform:translateY(18px); }
+.js-reveal.is-in{ opacity:1; transform:none;
+  transition:opacity .55s var(--e-out), transform .55s var(--e-out); }
+@media(prefers-reduced-motion:reduce){
+  .js-reveal{ opacity:1 !important; transform:none !important; }
+}
+
+/* Card lift on hover, matching the reference's soft violet shadow */
+.card,.pcard{ transition:transform var(--dur-base) var(--e-out),
+  box-shadow var(--dur-base) var(--e-out); }
+.card:hover,.pcard:hover{ transform:translateY(-3px);
+  box-shadow:0 18px 40px -24px rgba(109,40,217,.35); }
+@media(prefers-reduced-motion:reduce){
+  .card:hover,.pcard:hover{ transform:none; }
+}

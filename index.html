@@ -352,31 +352,56 @@
 </footer>
 
 <script>
-/* Hero background: JS-driven drifting + breathing glow orbs.
-   requestAnimationFrame runs regardless of the OS "reduce motion" setting,
-   so the ambient motion is visible while staying soft (blurred, no sharp moves). */
+/* Two small touches. Both are opt-in from JS, so with scripting off the
+   page renders exactly as it does now: figures at their final value and
+   every section visible. Both bail out under "reduce motion". */
 (function () {
-  var orbs = Array.prototype.slice.call(document.querySelectorAll('.hero .orb'));
-  if (!orbs.length || !window.requestAnimationFrame) return;
-  var conf = [
-    { ax: 80, ay: 60, sx: 0.00040, sy: 0.00031, ph: 0.0, ps: 0.14 },
-    { ax: 92, ay: 70, sx: 0.00034, sy: 0.00044, ph: 2.1, ps: 0.16 },
-    { ax: 70, ay: 78, sx: 0.00046, sy: 0.00036, ph: 4.2, ps: 0.13 }
-  ];
-  var start = null;
-  function tick(t) {
-    if (start === null) start = t;
-    var e = t - start;
-    for (var i = 0; i < orbs.length; i++) {
-      var c = conf[i % conf.length];
-      var x = Math.sin(e * c.sx + c.ph) * c.ax;
-      var y = Math.cos(e * c.sy + c.ph) * c.ay;
-      var s = 1 + Math.sin(e * c.sx * 1.4 + c.ph) * c.ps;
-      orbs[i].style.transform = 'translate3d(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px,0) scale(' + s.toFixed(3) + ')';
-    }
-    requestAnimationFrame(tick);
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce || !window.requestAnimationFrame) return;
+
+  /* 1. Hero stat figures count up once, after the entrance settles. */
+  function countUp() {
+    var els = document.querySelectorAll('.hero__stats strong');
+    for (var i = 0; i < els.length; i++) (function (el) {
+      var full = el.textContent.trim();
+      var m = full.match(/^(\D*)(\d+)(.*)$/);          /* $250 | 14 days | 10 users */
+      if (!m) return;
+      var pre = m[1], target = parseInt(m[2], 10), post = m[3], dur = 850, start = null;
+      el.textContent = pre + '0' + post;
+      requestAnimationFrame(function step(t) {
+        if (start === null) start = t;
+        var p = Math.min(1, (t - start) / dur);
+        var eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = p < 1 ? pre + Math.round(target * eased) + post : full;
+        if (p < 1) requestAnimationFrame(step);
+      });
+    })(els[i]);
   }
-  requestAnimationFrame(tick);
+  setTimeout(countUp, 620);   /* after the stats have risen into place */
+
+  /* 2. Sections below the hero rise in as they come into view. */
+  if (!('IntersectionObserver' in window)) return;
+  var targets = document.querySelectorAll(
+    '.section .head, .section .card, .section .pcard, .section .numlist li, .section .review, .formcard'
+  );
+  if (!targets.length) return;
+
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      e.target.classList.add('is-in');
+      io.unobserve(e.target);
+    });
+  }, { rootMargin: '0px 0px -12% 0px', threshold: 0.05 });
+
+  for (var j = 0; j < targets.length; j++) {
+    targets[j].classList.add('js-reveal');
+    /* stagger siblings only, so a row animates in sequence */
+    var sibs = targets[j].parentElement ? targets[j].parentElement.children : [];
+    var k = Array.prototype.indexOf.call(sibs, targets[j]);
+    targets[j].style.transitionDelay = Math.min(k, 4) * 70 + 'ms';
+    io.observe(targets[j]);
+  }
 })();
 </script>
 </body>
