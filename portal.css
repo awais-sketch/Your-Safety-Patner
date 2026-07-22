@@ -746,76 +746,92 @@ h1,h2,h3,h4{ margin:0; color:var(--ink); font-weight:700; letter-spacing:-.02em;
 .hero .btn--accent:hover{ background:#8f3dff; box-shadow:none; }
 
 /* ========================================================================
-   BRAND PALETTE v6 — sampled from the logo itself (assets/portal-logo.png),
-   not from the website's buttons. Pixel counts over the mark:
-     #202070 deep indigo navy  170,447px  <- the wordmark, dominant
-     #ffb818 gold               15,980px  <- the "o" in "portal"
-     #3838c0 mid indigo                   <- gradient middle
-     #a070e8 / #b078f0 lavender           <- gradient tail
-   The earlier #7008e7 electric purple came from the site's buttons and is
-   NOT the logo colour. Redefining the tokens recolours the whole hero.
+   The logo's own indigo/gold (#202070 / #ffb818) was tried here and is
+   SUPERSEDED: the agreed brand reference for this page is
+   https://ysp-safety.vercel.app, sampled in the block below.
+   Layout stays exactly as it is; only colour follows the reference.
    ======================================================================== */
-:root{
-  --b-purple:#202070;    /* primary: deep indigo from the wordmark */
-  --b-purple-2:#2a2a8c;  /* hover */
-  --b-lavender:#a070e8;  /* gradient tail, soft accent */
-  --b-violet:#efedfd;
-  --b-violet-2:#f6f4ff;
-  --b-ink:#202070;       /* headings in brand indigo, not slate */
-  --b-dark:#1c1c66;      /* offer card: deep indigo, not generic navy */
-  --b-gold:#ffb818;      /* logo gold */
-  --b-muted:#5c5c7a;     /* muted text, tinted toward indigo */
-  --b-line:#e4e3f0;
-}
-
-/* Canvas: faint lavender wash from the gradient tail */
-.hero{ background:linear-gradient(180deg,#f5f3ff 0%,#faf9ff 46%,#fff 100%); }
-.hero__grid{ background-image:repeating-linear-gradient(115deg,
-  rgba(32,32,112,.045) 0 1px, transparent 1px 84px); }
-
-/* Gold lead dash (the logo's own accent pairing with indigo) */
-.hero__dash{ background:var(--b-gold); }
-.hero__points li::before{ background:var(--b-gold); }
-
-/* Card CTA in gold on the indigo card — the logo's exact pairing.
-   (Indigo-on-indigo would disappear.) */
-.hero .btn--accent{ background:var(--b-gold); color:#1a1440; font-weight:800; }
-.hero .btn--accent:hover{ background:#ffc63f; box-shadow:none; }
-.offer-card__list .check{ background:rgba(255,184,24,.18); color:var(--b-gold); }
-.offer-card__label{ color:rgba(255,255,255,.6); }
-.offer-card__list li{ color:rgba(255,255,255,.85); }
-.offer-card__note{ color:rgba(255,255,255,.45); }
-
-/* Nav CTA sits directly above the hero — brand indigo like the wordmark. */
-.nav .btn--primary{ background:var(--b-purple); color:#fff; border-radius:8px; }
-.nav .btn--primary:hover{ background:var(--b-purple-2);
-  box-shadow:0 12px 24px -14px rgba(32,32,112,.55); }
 
 /* ========================================================================
-   BRAND ROLL-OUT — the rest of the page, not just the hero.
-   Headings were #0f172a near-black and the page CTAs #15181d charcoal,
-   while the logo is indigo. Retokenising the base palette carries the
-   brand through every section in one place.
+   BRAND — sampled live from https://ysp-safety.vercel.app (the reference)
+     #0f172a  headline ink (slate-900)
+     #6d28d9  primary CTA, shadow rgba(109,40,217,.4) 0 8px 22px -8px, r10px
+     #7c3aed  accent violet (its headline gradient runs #7c3aed -> #4f46e5)
+     #475569  body/lede at 20px
+     #f97316  the "50% OFF" pill, white text, fully rounded
+     #10b981  live status dot
+     #64748b  logo-strip label, 12px, 1.68px tracking
+     #e2e8f0  hairlines and outline-button borders
    ======================================================================== */
 :root{
-  --ink:#202070;            /* all headings, from near-black slate */
-  --char:#202070;           /* .btn--primary is defined off this */
-  --char-2:#2a2a8c;
-  --navy:#202070;
-  --navy-2:#171754;         /* dark surfaces: panel, CTA band, footer */
-  --violet:#202070;         /* was #6d28d9 electric purple, off-brand */
-  --violet-2:#2a2a8c;
-  --violet-soft:#efedfd;
-  --violet-ring:rgba(32,32,112,.16);
-  --yellow:#ffb818;         /* logo gold */
-  --yellow-ink:#1a1440;
-  --gold:#ffb818;           /* review stars */
-  --orange:#ffb818;
+  --b-purple:#6d28d9;    /* primary action */
+  --b-purple-2:#7c3aed;  /* hover / accent */
+  --b-indigo:#4f46e5;    /* second stop of the reference's accent */
+  --b-violet:#ede9fe;
+  --b-violet-2:#f5f3ff;
+  --b-ink:#0f172a;       /* headline ink */
+  --b-dark:#0f172a;      /* offer card surface */
+  --b-gold:#f97316;      /* the reference's orange accent */
+  --b-muted:#475569;
+  --b-line:#e2e8f0;
 }
+
+/* Canvas: the reference's soft wash, kept very light */
+.hero{ background:linear-gradient(180deg,#f7f5ff 0%,#fbfaff 44%,#fff 100%); }
+.hero__grid{ background-image:repeating-linear-gradient(115deg,
+  rgba(109,40,217,.04) 0 1px, transparent 1px 84px); }
+
+.hero__eyebrow{ color:#64748b; }
+.hero__dash{ background:var(--b-purple); }
+.hero__points li::before{ background:var(--b-purple); }
+/* Highlight behind one word: soft violet, so the ink stays #0f172a */
+.hero__title .hl::before{ background:#ddd6fe; }
+
+/* CTAs exactly as the reference: r10px, violet with its lifted shadow */
+.hero .btn--lg{ border-radius:10px; }
+.hero .btn--primary{ background:var(--b-purple);
+  box-shadow:0 8px 22px -8px rgba(109,40,217,.4); }
+.hero .btn--primary:hover{ background:var(--b-purple-2);
+  box-shadow:0 12px 26px -8px rgba(109,40,217,.5); }
+.hero .btn--outline{ background:#fff; color:var(--b-ink); border:1px solid var(--b-line); }
+.hero .btn--outline:hover{ border-color:#cbd5e1; color:var(--b-ink); background:#fff; }
+
+/* Offer card: slate-900 surface, orange price flash, violet action */
+.offer-card{ background:var(--b-dark);
+  box-shadow:0 24px 50px -32px rgba(15,23,42,.6); }
+.offer-card:hover{ box-shadow:0 24px 50px -32px rgba(15,23,42,.6); }
+.offer-card__tag{ color:#c4b5fd; }
+.offer-card__off{ color:var(--b-gold); }
+.offer-card__label{ color:rgba(255,255,255,.6); }
+.offer-card__list li{ color:rgba(255,255,255,.85); }
+.offer-card__list .check{ background:rgba(124,58,237,.24); color:#c4b5fd; }
+.offer-card__note{ color:rgba(255,255,255,.45); }
+.hero .btn--accent{ background:var(--b-purple); color:#fff; font-weight:700;
+  border-radius:10px; box-shadow:0 8px 22px -8px rgba(109,40,217,.45); }
+.hero .btn--accent:hover{ background:var(--b-purple-2); }
+
+.hero__logos-label{ color:#64748b; font-size:12px; letter-spacing:1.68px; }
+
+/* ========================================================================
+   Same palette across the rest of the page, in one place.
+   ======================================================================== */
+:root{
+  --ink:#0f172a;
+  --char:#0f172a;  --char-2:#1e293b;
+  --navy:#0f172a;  --navy-2:#0f172a;
+  --violet:#6d28d9; --violet-2:#7c3aed;
+  --violet-soft:#f4f1fe; --violet-ring:rgba(109,40,217,.14);
+  --yellow:#f97316; --yellow-ink:#ffffff;
+  --gold:#f59e0b;
+  --orange:#f97316;
+}
+.nav .btn--primary{ background:var(--b-purple); color:#fff; border-radius:10px; }
+.nav .btn--primary:hover{ background:var(--b-purple-2);
+  box-shadow:0 8px 22px -8px rgba(109,40,217,.45); }
 .btn--primary{ background:var(--b-purple); color:#fff; }
 .btn--primary:hover{ background:var(--b-purple-2); }
-.btn--outline{ color:var(--b-purple); border-color:#d5d3e8; }
-.btn--outline:hover{ border-color:var(--b-purple); color:var(--b-purple); }
-.btn--accent{ background:var(--b-gold); color:#1a1440; }
+.btn--outline{ background:#fff; color:var(--b-ink); border-color:var(--b-line); }
+.btn--outline:hover{ border-color:#cbd5e1; color:var(--b-ink); }
+.btn--accent{ background:var(--b-purple); color:#fff; }
 ::selection{ background:var(--b-purple); color:#fff; }
 :focus-visible{ outline-color:var(--b-purple); }
