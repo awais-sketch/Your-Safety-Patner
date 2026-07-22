@@ -864,10 +864,19 @@ h1,h2,h3,h4{ margin:0; color:var(--ink); font-weight:700; letter-spacing:-.02em;
    about 1.5s. Longer than an interaction transition on purpose - this is
    an arrival, not a response to a click.
    ======================================================================== */
-@keyframes ysp-inD{ from{ opacity:0; transform:translate3d(0,-14px,0); } to{ opacity:1; transform:none; } }
-@keyframes ysp-inL{ from{ opacity:0; transform:translate3d(-28px,0,0); } to{ opacity:1; transform:none; } }
-@keyframes ysp-inR{ from{ opacity:0; transform:translate3d(32px,0,0);  } to{ opacity:1; transform:none; } }
-@keyframes ysp-inU{ from{ opacity:0; transform:translate3d(0,22px,0);  } to{ opacity:1; transform:none; } }
+/* Smoother than the previous pass: the old curve (.16,1,.3,1) dumps almost
+   all its travel in the first third and then crawls, which reads as a snap
+   followed by a drag. This one distributes the movement more evenly, over a
+   longer duration and a shorter distance, so it glides instead of darting.
+   Opacity is eased separately by the curve too, so nothing pops in. */
+:root{ --e-glide:cubic-bezier(.25,.8,.32,1); --dur-slide:760ms; }
+@keyframes ysp-inD{ from{ opacity:0; transform:translate3d(0,-12px,0); } to{ opacity:1; transform:translate3d(0,0,0); } }
+@keyframes ysp-inL{ from{ opacity:0; transform:translate3d(-22px,0,0); } to{ opacity:1; transform:translate3d(0,0,0); } }
+@keyframes ysp-inR{ from{ opacity:0; transform:translate3d(26px,0,0);  } to{ opacity:1; transform:translate3d(0,0,0); } }
+@keyframes ysp-inU{ from{ opacity:0; transform:translate3d(0,18px,0);  } to{ opacity:1; transform:translate3d(0,0,0); } }
+.nav,.hero__eyebrow,.hero__title .ln,.hero__lede,.hero__cta,
+.hero__stats li,.offer-card,.hero__logos-label,.hero__logos-row li{
+  animation-timing-function:var(--e-glide); will-change:transform, opacity; }
 
 /* Header drops from the edge it is attached to. Ends on transform:none so
    nothing lingers to interfere with position:sticky. */
@@ -875,7 +884,7 @@ h1,h2,h3,h4{ margin:0; color:var(--ink); font-weight:700; letter-spacing:-.02em;
 
 /* Left column, in reading order */
 .hero__eyebrow,.hero__lede,.hero__cta{
-  animation-name:ysp-inL; animation-duration:560ms; }
+  animation-name:ysp-inL; animation-duration:var(--dur-slide); }
 .hero__eyebrow{ animation-delay:120ms; }
 .hero__lede   { animation-delay:660ms; }
 .hero__cta    { animation-delay:790ms; }
@@ -886,24 +895,24 @@ h1,h2,h3,h4{ margin:0; color:var(--ink); font-weight:700; letter-spacing:-.02em;
    transform does not apply to non-replaced inline boxes, so those lines
    fade rather than slide. */
 .hero__title{ animation-name:none; }
-.hero__title .ln{ animation:ysp-inL 560ms var(--e-out) both; }
+.hero__title .ln{ animation:ysp-inL var(--dur-slide) var(--e-glide) both; }
 .hero__title .ln:nth-child(1){ animation-delay:260ms; }
 .hero__title .ln:nth-child(2){ animation-delay:390ms; }
 .hero__title .ln:nth-child(3){ animation-delay:520ms; }
 
-/* The marker waits until the last line has actually landed (520+560=1080) */
-.hero__title .hl::before{ animation:ysp-mark 620ms var(--e-out) 1120ms both; }
+/* The marker waits until the last line has actually landed (520+760=1280) */
+.hero__title .hl::before{ animation:ysp-mark 620ms var(--e-glide) 1320ms both; }
 
 /* Figures rise after the copy is in place */
-.hero__stats li{ animation-name:ysp-inU; animation-duration:560ms;
+.hero__stats li{ animation-name:ysp-inU; animation-duration:var(--dur-slide);
   animation-delay:calc(920ms + var(--n,0) * 90ms); }
 
 /* The card arrives from its own side, slightly slower so it feels heavier */
-.offer-card{ animation-name:ysp-inR; animation-duration:720ms; animation-delay:460ms; }
+.offer-card{ animation-name:ysp-inR; animation-duration:900ms; animation-delay:460ms; }
 
 /* Trust strip closes the sequence */
-.hero__logos-label{ animation-name:ysp-inU; animation-duration:560ms; animation-delay:1220ms; }
-.hero__logos-row li{ animation-name:ysp-inU; animation-duration:560ms;
+.hero__logos-label{ animation-name:ysp-inU; animation-duration:var(--dur-slide); animation-delay:1220ms; }
+.hero__logos-row li{ animation-name:ysp-inU; animation-duration:var(--dur-slide);
   animation-delay:calc(1300ms + var(--i,0) * 65ms); }
 
 /* Reduced motion gets a real entrance too, just without movement: the same
@@ -995,15 +1004,20 @@ html:not(.anim-in) .hero__title .hl::before{ transform:skew(-3deg) !important; }
     rgba(15,23,42,.05) 0 1px, transparent 1px 132px);
   animation:ysp-planeB 17s linear infinite; }
 
-/* A wide, soft pass of light. Was white over a near-white canvas: a colour
-   delta of 5, effectively invisible. Now carries the brand violet, which
-   lifts it to roughly 15 — present, but still only a soft pass of light. */
+/* Continuous bands of soft light rather than one pass with gaps. The old
+   single sweep faded to opacity 0 at both ends of its cycle, so for a good
+   part of every 14s there was simply nothing moving to see. This is a
+   repeating band pattern, blurred heavily, so light is always crossing the
+   canvas. 660px period, ~27px/sec — clearly present, still soft. */
 .hero__bgfx::after{ content:""; display:block; position:absolute;
-  top:-25%; left:-45%; width:48%; height:150%;
-  background:linear-gradient(100deg, transparent,
-    rgba(167,139,250,.12) 44%, rgba(109,40,217,.09) 60%, transparent);
-  filter:blur(48px); will-change:transform, opacity;
-  animation:ysp-sweep 14s cubic-bezier(.45,0,.55,1) infinite; }
+  inset:-40% -60%; opacity:1;
+  background:repeating-linear-gradient(100deg,
+    transparent 0 250px,
+    rgba(167,139,250,.13) 330px,
+    rgba(109,40,217,.10) 420px,
+    transparent 660px);
+  filter:blur(52px); will-change:transform;
+  animation:ysp-bands 24s linear infinite; }
 
 @keyframes ysp-planeA{
   from{ transform:translate3d(0,0,0); }
@@ -1011,11 +1025,12 @@ html:not(.anim-in) .hero__title .hl::before{ transform:skew(-3deg) !important; }
 @keyframes ysp-planeB{
   from{ transform:translate3d(0,0,0); }
   to  { transform:translate3d(-119.6px,55.8px,0); } }
-@keyframes ysp-sweep{
-  0%  { transform:translate3d(0,0,0);    opacity:0; }
-  14% { opacity:1; }
-  86% { opacity:1; }
-  100%{ transform:translate3d(330%,0,0); opacity:0; } }
+/* One full 660px period along the 100deg axis: (sin100, -cos100) x 660
+   = (650.0, 114.6). Landing exactly on the period is what makes the loop
+   seamless — no fade in and out, so the motion never stops. */
+@keyframes ysp-bands{
+  from{ transform:translate3d(0,0,0); }
+  to  { transform:translate3d(650px,114.6px,0); } }
 
 /* A continuously moving background is exactly what someone who asks for
    reduced motion needs switched off, so it goes off entirely — no fade
