@@ -378,7 +378,6 @@ h1,h2,h3,h4{ margin:0; color:var(--ink); font-weight:700; letter-spacing:-.02em;
 /* Eyebrow — mono-tracked with a sharp yellow lead dash */
 .hero__eyebrow{ display:flex; align-items:center; gap:12px; margin:0 0 24px;
   font-size:12px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:#6b7280; }
-.hero__dash{ width:26px; height:2px; background:var(--yellow); flex-shrink:0; }
 
 /* Headline — heavy editorial grotesque, near-black, tight */
 .hero__title{ font-family:'Hanken Grotesk',Inter,sans-serif; font-weight:800;
@@ -514,7 +513,6 @@ h1,h2,h3,h4{ margin:0; color:var(--ink); font-weight:700; letter-spacing:-.02em;
 .hero__title .hl::before{ transform-origin:left center;
   animation:ysp-mark 620ms var(--e-out) 520ms both; }
 /* Eyebrow dash draws out first */
-.hero__dash{ transform-origin:left center; animation:ysp-dash 420ms var(--e-out) 260ms both; }
 
 /* Press feedback */
 .btn{ transition:transform var(--dur-fast) var(--e-out), background var(--dur-fast) var(--e-out),
@@ -524,7 +522,7 @@ h1,h2,h3,h4{ margin:0; color:var(--ink); font-weight:700; letter-spacing:-.02em;
 @media(prefers-reduced-motion:reduce){
   .hero__eyebrow,.hero__title,.hero__sub,.hero__lede,.hero__cta,.hero__points li,
   .offer-card,.hero__logos-label,.hero__logos-row li,
-  .hero__title .hl::before,.hero__dash{
+  .hero__title .hl::before{
     animation:none !important; opacity:1 !important; transform:none !important; }
   .hero__title .hl::before{ transform:skew(-3deg) !important; }
   .hero__logos-row li:hover img,.offer-card:hover,.btn:active{ transform:none !important; }
@@ -557,7 +555,6 @@ h1,h2,h3,h4{ margin:0; color:var(--ink); font-weight:700; letter-spacing:-.02em;
 
 /* Type */
 .hero__eyebrow{ color:var(--b-muted); }
-.hero__dash{ background:var(--b-purple); }
 .hero__title{ color:var(--b-ink); }
 .hero__title .hl{ color:var(--b-ink); }
 .hero__title .hl::before{ background:var(--b-gold); }
@@ -697,13 +694,13 @@ h1,h2,h3,h4{ margin:0; color:var(--ink); font-weight:700; letter-spacing:-.02em;
 @media(max-width:960px){ .hero__inner{ grid-template-columns:minmax(0,1fr);
   gap:44px; padding:72px 28px 52px; } }
 
-/* Eyebrow — mono-tracked, sharp purple dash (pill badge removed) */
+/* Eyebrow — mono-tracked. The lead dash element is gone. */
 .hero__eyebrow{ font-size:11.5px; letter-spacing:.18em; }
 
-/* Headline — heavy, three deliberate lines, hard breaks */
+/* Headline — heavy, three deliberate lines, hard breaks. Sized down a step. */
 .hero__title{ font-family:'Hanken Grotesk',Inter,sans-serif; font-weight:800;
-  font-size:clamp(2.3rem,4.1vw,3.5rem); line-height:1.02; letter-spacing:-.035em;
-  color:var(--b-ink); text-wrap:wrap; max-width:none; margin:0 0 24px; }
+  font-size:clamp(1.95rem,3.35vw,2.85rem); line-height:1.06; letter-spacing:-.03em;
+  color:var(--b-ink); text-wrap:wrap; max-width:none; margin:0 0 22px; }
 .hero__title .hl::before{ background:var(--b-gold); }
 @media(max-width:960px){ .hero__title .lb{ display:none; } }
 
@@ -782,7 +779,6 @@ h1,h2,h3,h4{ margin:0; color:var(--ink); font-weight:700; letter-spacing:-.02em;
   rgba(109,40,217,.04) 0 1px, transparent 1px 84px); }
 
 .hero__eyebrow{ color:#64748b; }
-.hero__dash{ background:var(--b-purple); }
 .hero__points li::before{ background:var(--b-purple); }
 /* Highlight behind one word: soft violet, so the ink stays #0f172a */
 .hero__title .hl::before{ background:#ddd6fe; }
