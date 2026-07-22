@@ -519,12 +519,11 @@ h1,h2,h3,h4{ margin:0; color:var(--ink); font-weight:700; letter-spacing:-.02em;
   box-shadow var(--dur-base) var(--e-out), border-color var(--dur-fast) var(--e-out); }
 .btn:active{ transform:scale(.97); }
 
+/* Entrance under reduced motion is handled once, further down, as an
+   opacity-only fade. Freezing it here as well killed both the fade and the
+   stagger: `animation:none !important` also resets animation-delay to 0,
+   and `opacity:1 !important` made the fade invisible. */
 @media(prefers-reduced-motion:reduce){
-  .hero__eyebrow,.hero__title,.hero__sub,.hero__lede,.hero__cta,.hero__points li,
-  .offer-card,.hero__logos-label,.hero__logos-row li,
-  .hero__title .hl::before{
-    animation:none !important; opacity:1 !important; transform:none !important; }
-  .hero__title .hl::before{ transform:skew(-3deg) !important; }
   .hero__logos-row li:hover img,.offer-card:hover,.btn:active{ transform:none !important; }
 }
 
@@ -653,10 +652,7 @@ h1,h2,h3,h4{ margin:0; color:var(--ink); font-weight:700; letter-spacing:-.02em;
   .hero__stats strong{ font-size:26px; }
 }
 
-@media(prefers-reduced-motion:reduce){
-  .hero__eyebrow,.hero__stats li{
-    animation:none !important; opacity:1 !important; transform:none !important; }
-}
+/* (reduced-motion entrance is defined once, further down) */
 
 /* ---- Logo strip: identical box per logo, so the row reads as one line ----
    Every mark is scaled to fit the SAME 46x118 box and centred in it, instead
@@ -853,8 +849,10 @@ h1,h2,h3,h4{ margin:0; color:var(--ink); font-weight:700; letter-spacing:-.02em;
 .js-reveal{ opacity:0; transform:translateY(18px); }
 .js-reveal.is-in{ opacity:1; transform:none;
   transition:opacity .55s var(--e-out), transform .55s var(--e-out); }
+/* Reduced motion: still fades in on scroll, just without the rise */
 @media(prefers-reduced-motion:reduce){
-  .js-reveal{ opacity:1 !important; transform:none !important; }
+  .js-reveal{ transform:none !important; }
+  .js-reveal.is-in{ transition:opacity .4s linear !important; }
 }
 
 /* ========================================================================
@@ -899,12 +897,52 @@ h1,h2,h3,h4{ margin:0; color:var(--ink); font-weight:700; letter-spacing:-.02em;
 .hero__logos-row li{ animation-name:ysp-inU; animation-duration:600ms;
   animation-delay:calc(930ms + var(--i,0) * 60ms); }
 
+/* Reduced motion gets a real entrance too, just without movement: the same
+   staggered sequence, opacity only. Killing it outright made the page look
+   frozen; opacity changes carry no vestibular risk, so this is the correct
+   reduced variant rather than "no animation at all". */
+@keyframes ysp-fade{ from{ opacity:0; } to{ opacity:1; } }
 @media(prefers-reduced-motion:reduce){
   .nav,.hero__eyebrow,.hero__title,.hero__lede,.hero__cta,.hero__stats li,
-  .offer-card,.hero__logos-label,.hero__logos-row li,.hero__title .hl::before{
-    animation:none !important; opacity:1 !important; transform:none !important; }
-  .hero__title .hl::before{ transform:skew(-3deg) !important; }
+  .offer-card,.hero__logos-label,.hero__logos-row li{
+    animation-name:ysp-fade !important;
+    animation-duration:420ms !important;
+    animation-timing-function:linear !important;
+    animation-fill-mode:both !important;
+    transform:none !important; }          /* delays are inherited, so the
+                                             sequence still reads in order */
+  .hero__title .hl::before{
+    animation-name:ysp-fade !important; animation-duration:420ms !important;
+    transform:skew(-3deg) !important; }
 }
+
+/* ------------------------------------------------------------------------
+   SAFETY NET. Content must never depend on an animation finishing in order
+   to be visible. Every entrance rule above uses fill-mode both, which holds
+   the element at opacity 0 until its animation runs — fine normally, but if
+   the animation clock is stalled (background tab, some embedded webviews) or
+   scripting is off, the hero would stay blank. Caught exactly that in
+   testing: the whole hero sat at opacity 0 indefinitely.
+
+   So the entrance only exists while html.anim-in is present. It is added in
+   <head> before first paint and removed ~2.4s later, once the sequence has
+   finished. No JS, a stalled clock, or a slow tab all resolve to the natural,
+   fully visible state.
+   ------------------------------------------------------------------------ */
+html:not(.anim-in) .nav,
+html:not(.anim-in) .hero__eyebrow,
+html:not(.anim-in) .hero__title,
+html:not(.anim-in) .hero__sub,
+html:not(.anim-in) .hero__lede,
+html:not(.anim-in) .hero__cta,
+html:not(.anim-in) .hero__points li,
+html:not(.anim-in) .hero__stats li,
+html:not(.anim-in) .offer-card,
+html:not(.anim-in) .hero__logos-label,
+html:not(.anim-in) .hero__logos-row li,
+html:not(.anim-in) .hero__title .hl::before{
+  animation:none !important; opacity:1 !important; }
+html:not(.anim-in) .hero__title .hl::before{ transform:skew(-3deg) !important; }
 
 /* ========================================================================
    HERO BACKGROUND — ambient system, not decoration.

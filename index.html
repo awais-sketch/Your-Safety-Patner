@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="en-AU">
 <head>
+<!-- Entrance animations only exist while this class is on <html>. It is set
+     here, before first paint, and removed by script once the sequence is
+     over. With scripting off it is never set, so the page renders fully
+     visible instead of waiting on an animation that will never run. -->
+<script>document.documentElement.className += ' anim-in';</script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>WHS Documentation Compliance Review, 50% Off | Your Safety Portal</title>
@@ -357,7 +362,22 @@
    every section visible. Both bail out under "reduce motion". */
 (function () {
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (reduce || !window.requestAnimationFrame) return;
+
+  /* Drop the entrance class once the sequence has finished. From here on the
+     hero is held visible by its own natural styles, not by an animation's
+     fill state, so nothing can leave it stuck at opacity 0. setTimeout is
+     used deliberately: it still fires when the animation clock does not. */
+  setTimeout(function () {
+    document.documentElement.classList.remove('anim-in');
+  }, 2400);
+
+  if (!window.requestAnimationFrame) return;
+
+  /* Under reduced motion we skip the two things that actually move or churn
+     (parallax, counting digits) but still run the scroll reveal, which the
+     CSS downgrades to a plain fade. Returning here outright left the page
+     looking frozen. */
+  if (reduce) { revealOnScroll(); return; }
 
   /* 1. Hero stat figures count up once, after the entrance settles. */
   function countUp() {
@@ -401,27 +421,32 @@
   }
 
   /* 3. Sections below the hero rise in as they come into view. */
-  if (!('IntersectionObserver' in window)) return;
-  var targets = document.querySelectorAll(
-    '.section .head, .section .card, .section .pcard, .section .numlist li, .section .review, .formcard'
-  );
-  if (!targets.length) return;
+  revealOnScroll();
 
-  var io = new IntersectionObserver(function (entries) {
-    entries.forEach(function (e) {
-      if (!e.isIntersecting) return;
-      e.target.classList.add('is-in');
-      io.unobserve(e.target);
-    });
-  }, { rootMargin: '0px 0px -12% 0px', threshold: 0.05 });
+  /* Declared, not assigned, so the reduced-motion branch above can call it. */
+  function revealOnScroll() {
+    if (!('IntersectionObserver' in window)) return;
+    var targets = document.querySelectorAll(
+      '.section .head, .section .card, .section .pcard, .section .numlist li, .section .review, .formcard'
+    );
+    if (!targets.length) return;
 
-  for (var j = 0; j < targets.length; j++) {
-    targets[j].classList.add('js-reveal');
-    /* stagger siblings only, so a row animates in sequence */
-    var sibs = targets[j].parentElement ? targets[j].parentElement.children : [];
-    var k = Array.prototype.indexOf.call(sibs, targets[j]);
-    targets[j].style.transitionDelay = Math.min(k, 4) * 70 + 'ms';
-    io.observe(targets[j]);
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        e.target.classList.add('is-in');
+        io.unobserve(e.target);
+      });
+    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.05 });
+
+    for (var j = 0; j < targets.length; j++) {
+      targets[j].classList.add('js-reveal');
+      /* stagger siblings only, so a row animates in sequence */
+      var sibs = targets[j].parentElement ? targets[j].parentElement.children : [];
+      var k = Array.prototype.indexOf.call(sibs, targets[j]);
+      targets[j].style.transitionDelay = Math.min(k, 4) * 70 + 'ms';
+      io.observe(targets[j]);
+    }
   }
 })();
 </script>
