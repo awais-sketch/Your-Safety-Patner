@@ -912,15 +912,22 @@ h1,h2,h3,h4{ margin:0; color:var(--ink); font-weight:700; letter-spacing:-.02em;
    reduced variant rather than "no animation at all". */
 @keyframes ysp-fade{ from{ opacity:0; } to{ opacity:1; } }
 @media(prefers-reduced-motion:reduce){
-  .nav,.hero__eyebrow,.hero__title .ln,.hero__lede,.hero__cta,.hero__stats li,
-  .offer-card,.hero__logos-label,.hero__logos-row li{
+  html:not(.force-motion) .nav,
+  html:not(.force-motion) .hero__eyebrow,
+  html:not(.force-motion) .hero__title .ln,
+  html:not(.force-motion) .hero__lede,
+  html:not(.force-motion) .hero__cta,
+  html:not(.force-motion) .hero__stats li,
+  html:not(.force-motion) .offer-card,
+  html:not(.force-motion) .hero__logos-label,
+  html:not(.force-motion) .hero__logos-row li{
     animation-name:ysp-fade !important;
     animation-duration:420ms !important;
     animation-timing-function:linear !important;
     animation-fill-mode:both !important;
     transform:none !important; }          /* delays are inherited, so the
                                              sequence still reads in order */
-  .hero__title .hl::before{
+  html:not(.force-motion) .hero__title .hl::before{
     animation-name:ysp-fade !important; animation-duration:420ms !important;
     transform:skew(-3deg) !important; }
 }
@@ -969,27 +976,34 @@ html:not(.anim-in) .hero__title .hl::before{ transform:skew(-3deg) !important; }
   -webkit-mask-image:linear-gradient(180deg,#000 0%,#000 46%,transparent 92%);
   mask-image:linear-gradient(180deg,#000 0%,#000 46%,transparent 92%); }
 
-/* Plane A — the primary hairlines, 115deg, 84px tile */
+/* Plane A — the primary hairlines, 115deg, 84px tile.
+   11s, not 34s: at 34s the pattern crept along at 2.2px/sec, which is below
+   the point where drift reads as movement at all. 76.1px over 11s is
+   ~6.9px/sec — a slow, deliberate drift you can actually see. */
 .hero__grid{ inset:-35%; opacity:1; will-change:transform;
   -webkit-mask-image:none; mask-image:none;
   background-image:repeating-linear-gradient(115deg,
-    rgba(109,40,217,.055) 0 1px, transparent 1px 84px);
-  animation:ysp-planeA 34s linear infinite; }
+    rgba(109,40,217,.07) 0 1px, transparent 1px 84px);
+  animation:ysp-planeA 11s linear infinite; }
 
-/* Plane B — a sparser counter-plane, 65deg, 132px tile, drifting the other way */
+/* Plane B — a sparser counter-plane, 65deg, 132px tile, drifting the other way.
+   Deliberately not a multiple of plane A's period, so the two never lock into
+   step and the interference pattern keeps changing. */
 .hero__bgfx::before{ content:""; position:absolute; inset:-35%; display:block;
   will-change:transform;
   background-image:repeating-linear-gradient(65deg,
-    rgba(15,23,42,.04) 0 1px, transparent 1px 132px);
-  animation:ysp-planeB 52s linear infinite; }
+    rgba(15,23,42,.05) 0 1px, transparent 1px 132px);
+  animation:ysp-planeB 17s linear infinite; }
 
-/* A single wide, soft pass of light. Low alpha, long interval. */
+/* A wide, soft pass of light. Was white over a near-white canvas: a colour
+   delta of 5, effectively invisible. Now carries the brand violet, which
+   lifts it to roughly 15 — present, but still only a soft pass of light. */
 .hero__bgfx::after{ content:""; display:block; position:absolute;
   top:-25%; left:-45%; width:48%; height:150%;
   background:linear-gradient(100deg, transparent,
-    rgba(255,255,255,.62) 46%, rgba(237,233,254,.28) 62%, transparent);
-  filter:blur(44px); will-change:transform, opacity;
-  animation:ysp-sweep 21s cubic-bezier(.45,0,.55,1) infinite; }
+    rgba(167,139,250,.12) 44%, rgba(109,40,217,.09) 60%, transparent);
+  filter:blur(48px); will-change:transform, opacity;
+  animation:ysp-sweep 14s cubic-bezier(.45,0,.55,1) infinite; }
 
 @keyframes ysp-planeA{
   from{ transform:translate3d(0,0,0); }
@@ -1003,10 +1017,18 @@ html:not(.anim-in) .hero__title .hl::before{ transform:skew(-3deg) !important; }
   86% { opacity:1; }
   100%{ transform:translate3d(330%,0,0); opacity:0; } }
 
+/* A continuously moving background is exactly what someone who asks for
+   reduced motion needs switched off, so it goes off entirely — no fade
+   substitute here. The :not(.force-motion) guard exists only so the page can
+   be previewed with ?motion=on without changing an OS setting; without that
+   query parameter the class is never added and this behaves normally. */
 @media(prefers-reduced-motion:reduce){
-  .hero__grid,.hero__bgfx::before{ animation:none !important; transform:none !important; }
-  .hero__bgfx::after{ animation:none !important; opacity:0 !important; }
-  .hero__bgfx{ transform:none !important; }
+  html:not(.force-motion) .hero__grid,
+  html:not(.force-motion) .hero__bgfx::before{
+    animation:none !important; transform:none !important; }
+  html:not(.force-motion) .hero__bgfx::after{
+    animation:none !important; opacity:0 !important; }
+  html:not(.force-motion) .hero__bgfx{ transform:none !important; }
 }
 
 /* Card lift on hover, matching the reference's soft violet shadow */

@@ -5,7 +5,11 @@
      here, before first paint, and removed by script once the sequence is
      over. With scripting off it is never set, so the page renders fully
      visible instead of waiting on an animation that will never run. -->
-<script>document.documentElement.className += ' anim-in';</script>
+<script>document.documentElement.className += ' anim-in';
+/* ?motion=on forces the animation on even when the OS asks for reduced
+   motion. Purely for previewing on a machine that has animation effects
+   switched off; without the parameter the default behaviour is untouched. */
+if (location.search.indexOf('motion=on') > -1) document.documentElement.className += ' force-motion';</script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>WHS Documentation Compliance Review, 50% Off | Your Safety Portal</title>
