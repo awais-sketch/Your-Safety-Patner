@@ -369,7 +369,8 @@
      used deliberately: it still fires when the animation clock does not. */
   setTimeout(function () {
     document.documentElement.classList.remove('anim-in');
-  }, 2400);
+  }, 2800);   /* the sequence lands at 2185ms; leave real margin so the class
+                 is never pulled out from under a still-running animation */
 
   if (!window.requestAnimationFrame) return;
 

@@ -874,28 +874,37 @@ h1,h2,h3,h4{ margin:0; color:var(--ink); font-weight:700; letter-spacing:-.02em;
 .nav{ animation:ysp-inD 520ms var(--e-out) both; }
 
 /* Left column, in reading order */
-.hero__eyebrow,.hero__title,.hero__lede,.hero__cta{
-  animation-name:ysp-inL; animation-duration:640ms; }
-.hero__eyebrow{ animation-delay:150ms; }
-.hero__title  { animation-delay:240ms; }
-.hero__lede   { animation-delay:350ms; }
-.hero__cta    { animation-delay:450ms; }
+.hero__eyebrow,.hero__lede,.hero__cta{
+  animation-name:ysp-inL; animation-duration:560ms; }
+.hero__eyebrow{ animation-delay:120ms; }
+.hero__lede   { animation-delay:660ms; }
+.hero__cta    { animation-delay:790ms; }
 
-/* The marker waits until the headline has actually landed */
-.hero__title .hl::before{ animation:ysp-mark 620ms var(--e-out) 820ms both; }
+/* The headline arrives a line at a time, not as one block. Each line is its
+   own span, so each gets its own delay — 130ms apart, enough to read as a
+   sequence without feeling slow. Below 960px the spans go inline, where
+   transform does not apply to non-replaced inline boxes, so those lines
+   fade rather than slide. */
+.hero__title{ animation-name:none; }
+.hero__title .ln{ animation:ysp-inL 560ms var(--e-out) both; }
+.hero__title .ln:nth-child(1){ animation-delay:260ms; }
+.hero__title .ln:nth-child(2){ animation-delay:390ms; }
+.hero__title .ln:nth-child(3){ animation-delay:520ms; }
+
+/* The marker waits until the last line has actually landed (520+560=1080) */
+.hero__title .hl::before{ animation:ysp-mark 620ms var(--e-out) 1120ms both; }
 
 /* Figures rise after the copy is in place */
-.hero__stats li{ animation-name:ysp-inU; animation-duration:600ms;
-  animation-delay:calc(560ms + var(--n,0) * 90ms); }
+.hero__stats li{ animation-name:ysp-inU; animation-duration:560ms;
+  animation-delay:calc(920ms + var(--n,0) * 90ms); }
 
 /* The card arrives from its own side, slightly slower so it feels heavier */
-.offer-card{ animation-name:ysp-inR; animation-duration:720ms; animation-delay:330ms; }
+.offer-card{ animation-name:ysp-inR; animation-duration:720ms; animation-delay:460ms; }
 
-/* Trust strip closes the sequence. 60ms between logos rather than 90ms,
-   so the last one lands at ~1.85s instead of dragging past 2s. */
-.hero__logos-label{ animation-name:ysp-inU; animation-duration:600ms; animation-delay:860ms; }
-.hero__logos-row li{ animation-name:ysp-inU; animation-duration:600ms;
-  animation-delay:calc(930ms + var(--i,0) * 60ms); }
+/* Trust strip closes the sequence */
+.hero__logos-label{ animation-name:ysp-inU; animation-duration:560ms; animation-delay:1220ms; }
+.hero__logos-row li{ animation-name:ysp-inU; animation-duration:560ms;
+  animation-delay:calc(1300ms + var(--i,0) * 65ms); }
 
 /* Reduced motion gets a real entrance too, just without movement: the same
    staggered sequence, opacity only. Killing it outright made the page look
@@ -903,7 +912,7 @@ h1,h2,h3,h4{ margin:0; color:var(--ink); font-weight:700; letter-spacing:-.02em;
    reduced variant rather than "no animation at all". */
 @keyframes ysp-fade{ from{ opacity:0; } to{ opacity:1; } }
 @media(prefers-reduced-motion:reduce){
-  .nav,.hero__eyebrow,.hero__title,.hero__lede,.hero__cta,.hero__stats li,
+  .nav,.hero__eyebrow,.hero__title .ln,.hero__lede,.hero__cta,.hero__stats li,
   .offer-card,.hero__logos-label,.hero__logos-row li{
     animation-name:ysp-fade !important;
     animation-duration:420ms !important;
@@ -932,6 +941,7 @@ h1,h2,h3,h4{ margin:0; color:var(--ink); font-weight:700; letter-spacing:-.02em;
 html:not(.anim-in) .nav,
 html:not(.anim-in) .hero__eyebrow,
 html:not(.anim-in) .hero__title,
+html:not(.anim-in) .hero__title .ln,
 html:not(.anim-in) .hero__sub,
 html:not(.anim-in) .hero__lede,
 html:not(.anim-in) .hero__cta,
