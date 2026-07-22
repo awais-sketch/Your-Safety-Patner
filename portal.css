@@ -685,9 +685,11 @@ h1,h2,h3,h4{ margin:0; color:var(--ink); font-weight:700; letter-spacing:-.02em;
    Back to editorial: heavy grotesque headline on a flat canvas, mono
    eyebrow, gold marker on one word, flat buttons, solid dark offer card.
    ======================================================================== */
-.hero{ background:#fcfcfb; }                      /* flat canvas, no wash */
+/* Brand-tinted canvas kept (violet wash). Only the SaaS *structure* was the
+   problem, not the colour: blob, floating chip and pill badge are what went. */
+.hero{ background:linear-gradient(180deg,#f7f5ff 0%,#fbfaff 46%,#fff 100%); }
 .hero__grid{ opacity:.45;
-  background-image:repeating-linear-gradient(115deg, rgba(21,24,29,.03) 0 1px, transparent 1px 84px); }
+  background-image:repeating-linear-gradient(115deg, rgba(112,8,231,.04) 0 1px, transparent 1px 84px); }
 .hero__inner{ align-items:start; padding:86px 28px 58px; gap:72px;
   grid-template-columns:minmax(0,1fr) 380px; }
 /* Must sit after the rule above, or the 380px track squeezes the text to 0 */
